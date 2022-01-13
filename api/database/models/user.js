@@ -24,6 +24,13 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
+    picture: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      validate: {
+       isUrl: true
+      }
+    },
     birthday: {
       type: DataTypes.DATEONLY,
       allowNull: false
@@ -40,7 +47,10 @@ module.exports = (sequelize, DataTypes) => {
     email: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true
+      unique: true,
+      validate: {
+        isEmail: true
+      }
     },
     password: {
       type: DataTypes.STRING,

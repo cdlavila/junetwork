@@ -14,7 +14,10 @@ module.exports = {
       },
       image: {
         type: Sequelize.STRING,
-        allowNull: true
+        allowNull: true,
+        validate: {
+          isUrl: true
+        }
       },
       user_id: {
         type: Sequelize.UUID,

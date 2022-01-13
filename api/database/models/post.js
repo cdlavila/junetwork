@@ -23,7 +23,10 @@ module.exports = (sequelize, DataTypes) => {
     },
     image: {
       type: DataTypes.STRING,
-      allowNull: true
+      allowNull: true,
+      validate: {
+        isUrl: true
+      }
     },
     user_id: {
       type: DataTypes.UUID,

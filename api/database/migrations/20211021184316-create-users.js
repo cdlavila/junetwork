@@ -14,6 +14,13 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
+      picture: {
+        type: Sequelize.STRING,
+        allowNull: true,
+        validate: {
+          isUrl: true
+        }
+      },
       birthday: {
         type: Sequelize.DATEONLY,
         allowNull: false
@@ -30,7 +37,10 @@ module.exports = {
       email: {
         type: Sequelize.STRING,
         allowNull: false,
-        unique: true
+        unique: true,
+        validate: {
+          isEmail: true
+        }
       },
       password: {
         type: Sequelize.STRING,
