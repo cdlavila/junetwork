@@ -1,0 +1,33 @@
+require('dotenv').config()
+const express = require('express')
+const cors = require('cors')
+const port = process.env.PORT || 3001
+
+// Database connection
+const { sequelize } = require('./api/database/models/index')
+
+// Initialize express
+const app = express()
+
+// To use JSON format in the request
+app.use(express.json())
+app.use(express.urlencoded( { extended: true } ))
+
+// Allows all requests from any origin
+app.use(cors())
+
+// Server main route
+app.get('/', (req, res) => (
+    res.status(200).json({message: "Welcome to the social network server"})
+))
+
+app.listen(port, () => {
+    console.log(`Server listening at http://localhost:${port}`)
+    // Check connection with database
+    sequelize.sync().then(() => {
+        console.log("Connection has been established successfully");
+    }).catch(error => {
+        console.log("Connection has not been established successfully")
+        console.log("Error: ", error)
+    })
+})
