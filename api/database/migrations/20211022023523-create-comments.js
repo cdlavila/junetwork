@@ -45,4 +45,3 @@ module.exports = {
     return queryInterface.dropTable('comments')
   }
 }
-

@@ -5,8 +5,8 @@ module.exports = (sequelize, DataTypes) => {
   class Follower extends Model {
     static associate (models) {
       // define association here
-      Follower.belongsTo(models.User, { as: 'follower', foreignKey: 'follower_id', onDelete: 'CASCADE', onUpdate: 'CASCADE'})
-      Follower.belongsTo(models.User, { as: 'followed', foreignKey: 'followed_id', onDelete: 'CASCADE', onUpdate: 'CASCADE'})
+      Follower.belongsTo(models.User, { as: 'follower', foreignKey: 'follower_id', onDelete: 'CASCADE', onUpdate: 'CASCADE' })
+      Follower.belongsTo(models.User, { as: 'followed', foreignKey: 'followed_id', onDelete: 'CASCADE', onUpdate: 'CASCADE' })
     }
   }
 

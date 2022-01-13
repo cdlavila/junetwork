@@ -54,4 +54,3 @@ module.exports = {
     await queryInterface.bulkDelete('reactions', null, {})
   }
 }
-

@@ -9,8 +9,8 @@ module.exports = (sequelize, DataTypes) => {
       User.hasMany(models.Post, { as: 'posts', foreignKey: 'user_id', onDelete: 'CASCADE', onUpdate: 'CASCADE' })
       User.hasMany(models.Reaction, { as: 'reactions', foreignKey: 'user_id', onDelete: 'CASCADE', onUpdate: 'CASCADE' })
       User.hasMany(models.Comment, { as: 'comments', foreignKey: 'user_id', onDelete: 'CASCADE', onUpdate: 'CASCADE' })
-      User.hasMany(models.Follower, { as: 'followers', foreignKey: 'follower_id', onDelete: 'CASCADE', onUpdate: 'CASCADE'})
-      User.hasMany(models.Follower, { as: 'following', foreignKey: 'followed_id', onDelete: 'CASCADE', onUpdate: 'CASCADE'})
+      User.hasMany(models.Follower, { as: 'followers', foreignKey: 'follower_id', onDelete: 'CASCADE', onUpdate: 'CASCADE' })
+      User.hasMany(models.Follower, { as: 'following', foreignKey: 'followed_id', onDelete: 'CASCADE', onUpdate: 'CASCADE' })
     }
   }
 
@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: true,
       validate: {
-       isUrl: true
+        isUrl: true
       }
     },
     birthday: {
