@@ -1,6 +1,7 @@
 require('dotenv').config()
 const express = require('express')
 const cors = require('cors')
+const apiRouter = require('./api/routes/index')
 const port = process.env.PORT || 3001
 
 // Database connection
@@ -15,6 +16,9 @@ app.use(express.urlencoded( { extended: true } ))
 
 // Allows all requests from any origin
 app.use(cors())
+
+// API main route
+app.use('/api', apiRouter)
 
 // Server main route
 app.get('/', (req, res) => (
