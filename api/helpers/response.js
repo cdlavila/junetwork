@@ -1,5 +1,9 @@
 class response {
-  static async success (res, code, data, message) {
+  static success (res, code, data, message) {
+    if (code === 204) { // No-content response
+      res.status(code)
+    }
+
     res.status(code || 200).json({
       data: data,
       code: code,
@@ -8,7 +12,7 @@ class response {
     })
   }
 
-  static async error (res, code, error) {
+  static error (res, code, error) {
     res.status(code || 500).json({
       data: null,
       code: code,
