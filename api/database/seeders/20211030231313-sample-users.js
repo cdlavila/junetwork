@@ -1,5 +1,7 @@
 'use strict'
 
+const bcrypt = require('bcrypt')
+
 module.exports = {
   up: async (queryInterface) => {
     await queryInterface.bulkInsert('users', [{
@@ -10,7 +12,7 @@ module.exports = {
       gender: 'male',
       phone: '3205821741',
       email: 'carlosdaniellondonoavila@gmail.com',
-      password: 'carlos123',
+      password: bcrypt.hashSync('carlos123', 12),
       creation_date: new Date()
     }, {
       id: 'fce08757-00e4-4566-9042-1c3de54ff5b0',
@@ -20,7 +22,7 @@ module.exports = {
       gender: 'female',
       phone: '3126233178',
       email: 'linamaria@gmail.com',
-      password: 'lina123',
+      password: bcrypt.hashSync('lina123', 12),
       creation_date: new Date()
     }, {
       id: '82afd153-cc39-42c7-9481-69f5162c3848',
@@ -30,7 +32,7 @@ module.exports = {
       gender: 'female',
       phone: '3128236809',
       email: 'velarded44@gmail.com',
-      password: 'daniela123',
+      password: bcrypt.hashSync('daniela123', 12),
       creation_date: new Date()
     }], {})
   },

@@ -1,12 +1,12 @@
 const statusCode = require('./status-code')
 
-class response {
+class Response {
   static success (res, code, data, message) {
-    if (code === statusCode.NO_CONTENT) { // No-content response
+    if (code === statusCode?.NO_CONTENT) { // No-content response
       res.status(code)
     }
 
-    res.status(code || statusCode.OK).json({
+    res.status(code || statusCode?.OK).json({
       data: data,
       code: code,
       message: message,
@@ -15,7 +15,7 @@ class response {
   }
 
   static error (res, code, error) {
-    res.status(code || statusCode.SERVER_ERROR).json({
+    res.status(code || statusCode?.SERVER_ERROR).json({
       data: null,
       code: code,
       message: null,
@@ -24,4 +24,4 @@ class response {
   }
 }
 
-module.exports = response
+module.exports = Response
