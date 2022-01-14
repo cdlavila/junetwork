@@ -7,7 +7,7 @@ class Token {
       sub: userId,
       role: role,
       iat: dayjs().unix(), // Creation date
-      exp: dayjs().add(10, 'second').unix() // Expiration date
+      exp: dayjs().add(1, 'month').unix() // Expiration date
     }
     return jwt.sign(payload, process.env.TOKEN_SECRET_KEY) // Return the token
   }
