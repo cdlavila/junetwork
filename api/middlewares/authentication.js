@@ -1,5 +1,3 @@
-const dayjs = require('dayjs')
-
 // Helpers
 const statusCode = require('../helpers/status-code')
 const Response = require('../helpers/response')
@@ -26,11 +24,6 @@ async function authentication (req, res, next) {
     const token = req?.headers?.authorization.split(' ')[1]
     const payload = Token.verify(token, process.env.TOKEN_SECRET_KEY)
 
-    // Validate token expiration
-    if (payload?.exp <= dayjs().unix()) {
-      return Response.error(res, statusCode?.NOT_AUTHORIZED, 'Token has expired')
-    }
-
     // Verify user role
     let user
     switch (payload?.role) {
@@ -43,7 +36,7 @@ async function authentication (req, res, next) {
 
     // Validate that user still exits
     if (!user) {
-      return Response.error(res, statusCode?.NOT_AUTHORIZED, 'User does not exist')
+      return Response.error(res, statusCode?.NOT_AUTHORIZED, 'The user no longer exists')
     }
 
     req.user = user.dataValues

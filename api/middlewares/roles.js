@@ -2,7 +2,7 @@
 const statusCode = require('../helpers/status-code')
 const Response = require('../helpers/response')
 
-async function roles (...roles) {
+function roles (roles) {
   try {
     return (req, res, next) => {
       // Verify roles

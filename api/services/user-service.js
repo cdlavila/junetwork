@@ -29,7 +29,13 @@ class UserService {
 
     // Generate a token to the session
     const token = Token.generate(user?.id, 'user')
-    return Response.success(res, statusCode?.OK, { user, token }, 'User successfully authenticated')
+    return Response.success(res, statusCode?.OK, { user, token }, 'The user has successfully authenticated')
+  }
+
+  static async delete (res, id) {
+    const user = await User.destroy({ where: { id } })
+    console.log(user)
+    return Response.success(res, statusCode.NO_CONTENT)
   }
 }
 

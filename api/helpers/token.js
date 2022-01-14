@@ -6,8 +6,8 @@ class Token {
     const payload = {
       sub: userId,
       role: role,
-      iat: dayjs().unix(), // Creation date
-      exp: dayjs().add(1, 'month').unix() // Expiration date
+      iat: dayjs().unix(), // Creation time
+      exp: dayjs().add(1, 'month').unix() // Expiration time (1 month)
     }
     return jwt.sign(payload, process.env.TOKEN_SECRET_KEY) // Return the token
   }

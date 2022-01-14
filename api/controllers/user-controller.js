@@ -21,6 +21,14 @@ class UserController {
       return Response.error(res, statusCode?.SERVER_ERROR, error)
     }
   }
+
+  static async delete (req, res) {
+    try {
+      return await UserService.delete(res, req?.user?.id)
+    } catch (error) {
+      return Response.error(res, statusCode?.SERVER_ERROR, error)
+    }
+  }
 }
 
 module.exports = UserController
