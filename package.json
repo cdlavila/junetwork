@@ -4,7 +4,8 @@
   "description": "REST API of a social network with users, posts, comments, reactions, followers, etc.",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "node index.js",
+    "development": "nodemon index.js",
     "db:migrate:development": "sequelize db:migrate --env development",
     "db:seed:development": "sequelize db:seed:all --env development",
     "db:rollback:development": "sequelize db:migrate:undo:all --env development",
