@@ -22,6 +22,14 @@ class UserController {
     }
   }
 
+  static async getById (req, res) {
+    try {
+      return await UserService.getById(res, req?.params?.id)
+    } catch (error) {
+      return Response.error(res, statusCode?.SERVER_ERROR, error)
+    }
+  }
+
   static async update (req, res) {
     try {
       return await UserService.update(res, req?.body, req?.user?.id)

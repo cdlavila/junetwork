@@ -32,6 +32,14 @@ class UserService {
     return Response.success(res, statusCode?.OK, { user, token }, 'You have authenticated successfully')
   }
 
+  static async getById (res, id) {
+    const user = await UserRepository.findById(id)
+    if (!user) {
+      return Response.error(res, statusCode?.NOT_FOUND, 'No user with this id exists')
+    }
+    return Response.success(res, statusCode?.OK, user, `User of id: ${id}`)
+  }
+
   static async update (res, data, id) {
     await UserRepository.update(data, id)
     const user = await UserRepository.findById(id)
