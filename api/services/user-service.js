@@ -5,20 +5,20 @@ const statusCode = require('../helpers/status-code')
 const Response = require('../helpers/response')
 const Token = require('../helpers/token')
 
-// Models
-const { User } = require('../database/models/index')
+// Repository
+const UserRepository = require('../repositories/user-repository')
 
 class UserService {
   static async signUp (res, data) {
-    const user = await User.create(data)
+    const user = await UserRepository.create(data)
     return Response.success(res, statusCode.CREATED, user, 'You have registered successfully')
   }
 
   static async signIn (res, data) {
     // Find user by email
-    const user = await User.findOne({ where: { email: data?.email } })
+    const user = await UserRepository.findByEmail(data?.email)
     if (!user) {
-      return Response.error(res, statusCode?.NOT_FOUND, 'Do not exist an user with this email')
+      return Response.error(res, statusCode?.NOT_FOUND, 'No user with this email exists')
     }
 
     // Validate password
@@ -33,8 +33,7 @@ class UserService {
   }
 
   static async delete (res, id) {
-    const user = await User.destroy({ where: { id } })
-    console.log(user)
+    await UserRepository.delete(id)
     return Response.success(res, statusCode.NO_CONTENT)
   }
 }
