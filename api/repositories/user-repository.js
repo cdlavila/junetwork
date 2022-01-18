@@ -8,15 +8,15 @@ class UserRepository {
     return User.create(data)
   }
 
-  static async findAll () {
+  static async getAll () {
     return User.findAll()
   }
 
-  static async findById (id) {
+  static async getById (id) {
     return User.findByPk(id)
   }
 
-  static async findByEmail (email) {
+  static async getByEmail (email) {
     return User.findOne({
       where: { email }
     })

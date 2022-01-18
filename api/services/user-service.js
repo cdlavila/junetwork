@@ -16,7 +16,7 @@ class UserService {
 
   static async signIn (res, data) {
     // Find user by email
-    const user = await UserRepository.findByEmail(data?.email)
+    const user = await UserRepository.getByEmail(data?.email)
     if (!user) {
       return Response.error(res, statusCode?.NOT_FOUND, 'No user with this email exists')
     }
@@ -41,7 +41,7 @@ class UserService {
   }
 
   static async getById (res, id) {
-    const user = await UserRepository.findById(id)
+    const user = await UserRepository.getById(id)
     if (!user) {
       return Response.error(res, statusCode?.NOT_FOUND, 'No user with this id exists')
     }
@@ -50,7 +50,7 @@ class UserService {
 
   static async update (res, data, id) {
     await UserRepository.update(data, id)
-    const user = await UserRepository.findById(id)
+    const user = await UserRepository.getById(id)
     return Response.success(res, statusCode?.OK, user, 'You have updated your user account successfully')
   }
 
