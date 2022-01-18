@@ -32,6 +32,14 @@ class UserService {
     return Response.success(res, statusCode?.OK, { user, token }, 'You have authenticated successfully')
   }
 
+  static async search (res, parameter) {
+    const users = await UserRepository.search(parameter)
+    if (users?.length === 0) {
+      return Response.error(res, statusCode?.NOT_FOUND, 'No user found')
+    }
+    return Response.success(res, statusCode?.OK, users, 'Users list found')
+  }
+
   static async getById (res, id) {
     const user = await UserRepository.findById(id)
     if (!user) {

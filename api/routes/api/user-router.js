@@ -6,6 +6,7 @@ const checkRoles = require('../../middlewares/check-roles')
 // Public
 router.post('/sign-up', UserController.signUp)
 router.post('/sign-in', UserController.signIn)
+router.get('/search', UserController.search)
 router.get('/:id', UserController.getById)
 
 // Authenticated

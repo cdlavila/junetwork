@@ -1,3 +1,5 @@
+const { Op } = require('sequelize')
+
 // Models
 const { User } = require('../database/models/index')
 
@@ -17,6 +19,18 @@ class UserRepository {
   static async findByEmail (email) {
     return User.findOne({
       where: { email }
+    })
+  }
+
+  static async search (parameter) {
+    return User.findAll({
+      where: {
+        [Op.or]: [
+          { name: { [Op.iLike]: `%${parameter}%` } },
+          { email: { [Op.iLike]: `%${parameter}%` } },
+          { phone: { [Op.iLike]: `%${parameter}%` } }
+        ]
+      }
     })
   }
 
