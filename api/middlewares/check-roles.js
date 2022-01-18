@@ -2,10 +2,10 @@
 const statusCode = require('../helpers/status-code')
 const Response = require('../helpers/response')
 
-function roles (roles) {
+function checkRoles (roles) {
   try {
     return (req, res, next) => {
-      // Verify roles
+      // Verify checkRoles
       if (roles.includes(req?.userRole)) {
         next()
       } else {
@@ -17,4 +17,4 @@ function roles (roles) {
   }
 }
 
-module.exports = roles
+module.exports = checkRoles

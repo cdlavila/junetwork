@@ -1,13 +1,13 @@
 const router = require('express').Router()
 const UserController = require('../../controllers/user-controller')
-const authentication = require('../../middlewares/authentication')
-const roles = require('../../middlewares/roles')
+const checkAuthentication = require('../../middlewares/check-authentication')
+const checkRoles = require('../../middlewares/check-roles')
 
 // Public
 router.post('/sign-up', UserController.signUp)
 router.post('/sign-in', UserController.signIn)
 
 // Authentication required
-router.delete('/', authentication, roles(['user']), UserController.delete)
+router.delete('/', checkAuthentication, checkRoles(['user']), UserController.delete)
 
 module.exports = router

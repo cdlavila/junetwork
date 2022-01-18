@@ -6,7 +6,7 @@ const Token = require('../helpers/token')
 // Models
 const { User } = require('../database/models/index')
 
-async function authentication (req, res, next) {
+async function checkAuthentication (req, res, next) {
   try {
     // Validate that token was sent
     if (!req?.headers?.authorization) {
@@ -47,4 +47,4 @@ async function authentication (req, res, next) {
   }
 }
 
-module.exports = authentication
+module.exports = checkAuthentication
