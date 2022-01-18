@@ -7,7 +7,8 @@ const checkRoles = require('../../middlewares/check-roles')
 router.post('/sign-up', UserController.signUp)
 router.post('/sign-in', UserController.signIn)
 
-// Authentication required
+// Authenticated
+router.put('/', checkAuthentication, checkRoles(['user']), UserController.update)
 router.delete('/', checkAuthentication, checkRoles(['user']), UserController.delete)
 
 module.exports = router

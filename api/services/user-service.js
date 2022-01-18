@@ -11,7 +11,7 @@ const UserRepository = require('../repositories/user-repository')
 class UserService {
   static async signUp (res, data) {
     const user = await UserRepository.create(data)
-    return Response.success(res, statusCode.CREATED, user, 'You have registered successfully')
+    return Response.success(res, statusCode?.CREATED, user, 'You have registered successfully')
   }
 
   static async signIn (res, data) {
@@ -29,12 +29,18 @@ class UserService {
 
     // Generate a token to the session
     const token = Token.generate(user?.id, 'user')
-    return Response.success(res, statusCode?.OK, { user, token }, 'The user has successfully authenticated')
+    return Response.success(res, statusCode?.OK, { user, token }, 'You have authenticated successfully')
+  }
+
+  static async update (res, data, id) {
+    await UserRepository.update(data, id)
+    const user = await UserRepository.findById(id)
+    return Response.success(res, statusCode?.OK, user, 'You have updated your user account successfully')
   }
 
   static async delete (res, id) {
     await UserRepository.delete(id)
-    return Response.success(res, statusCode.NO_CONTENT)
+    return Response.success(res, statusCode?.NO_CONTENT)
   }
 }
 
