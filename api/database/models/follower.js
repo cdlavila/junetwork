@@ -23,6 +23,11 @@ module.exports = (sequelize, DataTypes) => {
     followed_id: {
       type: DataTypes.UUID,
       allowNull: false
+    },
+    creation_date: {
+      type: DataTypes.DATEONLY,
+      allowNull: false,
+      defaultValue: new Date()
     }
   }, {
     sequelize,

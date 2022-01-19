@@ -29,6 +29,11 @@ module.exports = {
           key: 'id',
           as: 'followed_id'
         }
+      },
+      creation_date: {
+        type: Sequelize.DATEONLY,
+        allowNull: false,
+        defaultValue: new Date()
       }
     })
   },
