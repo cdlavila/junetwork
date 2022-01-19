@@ -14,7 +14,8 @@ class UserRepository {
       where: { followed_id: followedId },
       include: {
         model: User,
-        as: 'follower'
+        as: 'follower',
+        attributes: { exclude: ['password'] }
       }
     })
   }
@@ -24,7 +25,8 @@ class UserRepository {
       where: { follower_id: followerId },
       include: {
         model: User,
-        as: 'followed'
+        as: 'followed',
+        attributes: { exclude: ['password'] }
       }
     })
   }

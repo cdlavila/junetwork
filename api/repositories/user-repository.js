@@ -5,15 +5,13 @@ const { User } = require('../database/models/index')
 
 class UserRepository {
   static async create (data) {
-    return User.create(data)
-  }
-
-  static async getAll () {
-    return User.findAll()
+    const user = User.create(data)
+    delete user.password
+    return user
   }
 
   static async getById (id) {
-    return User.findByPk(id)
+    return User.findByPk(id, { attributes: { exclude: ['password'] } })
   }
 
   static async getByEmail (email) {
@@ -30,7 +28,8 @@ class UserRepository {
           { email: { [Op.iLike]: `%${parameter}%` } },
           { phone: { [Op.iLike]: `%${parameter}%` } }
         ]
-      }
+      },
+      attributes: { exclude: ['password'] }
     })
   }
 

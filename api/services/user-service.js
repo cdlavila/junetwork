@@ -29,6 +29,7 @@ class UserService {
 
     // Generate a token to the session
     const token = Token.generate(user?.id, 'user')
+    delete user.password
     return Response.success(res, statusCode?.OK, { user, token }, 'You have authenticated successfully')
   }
 
