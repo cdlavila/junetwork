@@ -5,9 +5,7 @@ const { User } = require('../database/models/index')
 
 class UserRepository {
   static async create (data) {
-    const user = User.create(data)
-    delete user.password
-    return user
+    return User.create(data)
   }
 
   static async getById (id) {
