@@ -14,7 +14,7 @@ class FollowerController {
     }
   }
 
-  static async getFollowers (req, res) {
+  static async getMyFollowers (req, res) {
     try {
       return await FollowerService.getFollowers(res, req?.user?.id)
     } catch (error) {
@@ -22,9 +22,25 @@ class FollowerController {
     }
   }
 
-  static async getFollowing (req, res) {
+  static async getWhoIAmFollowing (req, res) {
     try {
       return await FollowerService.getFollowing(res, req?.user?.id)
+    } catch (error) {
+      return Response.error(res, statusCode?.SERVER_ERROR, error)
+    }
+  }
+
+  static async getFollowers (req, res) {
+    try {
+      return await FollowerService.getFollowers(res, req?.params?.userId)
+    } catch (error) {
+      return Response.error(res, statusCode?.SERVER_ERROR, error)
+    }
+  }
+
+  static async getFollowing (req, res) {
+    try {
+      return await FollowerService.getFollowing(res, req?.params?.userId)
     } catch (error) {
       return Response.error(res, statusCode?.SERVER_ERROR, error)
     }
