@@ -38,6 +38,14 @@ class UserController {
     }
   }
 
+  static async getMyself (req, res) {
+    try {
+      return await UserService.getById(res, req?.user?.id)
+    } catch (error) {
+      return Response.error(res, statusCode?.SERVER_ERROR, error)
+    }
+  }
+
   static async getById (req, res) {
     try {
       return await UserService.getById(res, req?.params?.id)

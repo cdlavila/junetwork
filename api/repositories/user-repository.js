@@ -9,7 +9,9 @@ class UserRepository {
   }
 
   static async getById (id) {
-    return User.findByPk(id, { attributes: { exclude: ['password'] } })
+    return User.findByPk(id, {
+      attributes: { exclude: ['password'] }
+    })
   }
 
   static async getByEmail (email) {
@@ -27,7 +29,7 @@ class UserRepository {
           { phone: { [Op.iLike]: `%${parameter}%` } }
         ]
       },
-      attributes: { exclude: ['password'] }
+      attributes: ['id', 'name', 'picture']
     })
   }
 
