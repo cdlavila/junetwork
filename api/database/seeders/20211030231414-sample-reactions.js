@@ -47,6 +47,21 @@ module.exports = {
       emoji: 'angry',
       post_id: 'b1cf8feb-2db3-4da5-b7ad-5751339e9636',
       user_id: '82afd153-cc39-42c7-9481-69f5162c3848'
+    }, {
+      id: '12e777e6-1271-4361-9ab6-078718c151f0',
+      emoji: 'love',
+      comment_id: 'aed2b421-a62b-47ff-b1cf-a7558edefbb8',
+      user_id: '8d4169b9-673b-4819-8097-376548c51a15'
+    }, {
+      id: '1b13c0b6-34b7-49e6-b3fe-a55d5482a123',
+      emoji: 'sad',
+      comment_id: '96fd6a46-61fb-4544-8b10-8c88d723945c',
+      user_id: 'fce08757-00e4-4566-9042-1c3de54ff5b0'
+    }, {
+      id: '31e77a04-bdcb-409a-b11c-23d397ac0d54',
+      emoji: 'angry',
+      comment_id: '3e51a2a1-2b25-4f37-84ff-e823e653c86a',
+      user_id: '82afd153-cc39-42c7-9481-69f5162c3848'
     }], {})
   },
 

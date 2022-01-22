@@ -5,6 +5,7 @@ module.exports = (sequelize, DataTypes) => {
   class Comment extends Model {
     static associate (models) {
       // define association here
+      Comment.hasMany(models.Reaction, { as: 'reactions', foreignKey: 'comment_id', onDelete: 'CASCADE', onUpdate: 'CASCADE' })
       Comment.belongsTo(models.Post, { as: 'post', foreignKey: 'post_id', onDelete: 'CASCADE', onUpdate: 'CASCADE' })
       Comment.belongsTo(models.User, { as: 'user', foreignKey: 'user_id', onDelete: 'CASCADE', onUpdate: 'CASCADE' })
     }

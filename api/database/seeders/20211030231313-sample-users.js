@@ -12,8 +12,7 @@ module.exports = {
       gender: 'male',
       phone: '3205821741',
       email: 'carlosdaniellondonoavila@gmail.com',
-      password: bcrypt.hashSync('carlos123', 12),
-      creation_date: new Date()
+      password: bcrypt.hashSync('carlos123', 12)
     }, {
       id: 'fce08757-00e4-4566-9042-1c3de54ff5b0',
       name: 'Lina Maria Londoño Avila',
@@ -22,8 +21,7 @@ module.exports = {
       gender: 'female',
       phone: '3126233178',
       email: 'linamaria@gmail.com',
-      password: bcrypt.hashSync('lina123', 12),
-      creation_date: new Date()
+      password: bcrypt.hashSync('lina123', 12)
     }, {
       id: '82afd153-cc39-42c7-9481-69f5162c3848',
       name: 'Daniela Velarde Arana',
@@ -32,8 +30,7 @@ module.exports = {
       gender: 'female',
       phone: '3128236809',
       email: 'velarded44@gmail.com',
-      password: bcrypt.hashSync('daniela123', 12),
-      creation_date: new Date()
+      password: bcrypt.hashSync('daniela123', 12)
     }], {})
   },
 

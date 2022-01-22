@@ -14,13 +14,24 @@ module.exports = {
       },
       post_id: {
         type: Sequelize.UUID,
-        allowNull: false,
+        allowNull: true,
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
         references: {
           model: 'posts',
           key: 'id',
           as: 'post_id'
+        }
+      },
+      comment_id: {
+        type: Sequelize.UUID,
+        allowNull: true,
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
+        references: {
+          model: 'comments',
+          key: 'id',
+          as: 'comment_id'
         }
       },
       user_id: {

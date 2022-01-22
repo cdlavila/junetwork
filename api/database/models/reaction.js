@@ -6,6 +6,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate (models) {
       // define association here
       Reaction.belongsTo(models.Post, { as: 'post', foreignKey: 'post_id', onDelete: 'CASCADE', onUpdate: 'CASCADE' })
+      Reaction.belongsTo(models.Comment, { as: 'comment', foreignKey: 'comment_id', onDelete: 'CASCADE', onUpdate: 'CASCADE' })
       Reaction.belongsTo(models.User, { as: 'user', foreignKey: 'user_id', onDelete: 'CASCADE', onUpdate: 'CASCADE' })
     }
   }
@@ -22,7 +23,11 @@ module.exports = (sequelize, DataTypes) => {
     },
     post_id: {
       type: DataTypes.UUID,
-      allowNull: false
+      allowNull: true
+    },
+    comment_id: {
+      type: DataTypes.UUID,
+      allowNull: true
     },
     user_id: {
       type: DataTypes.UUID,
