@@ -32,6 +32,16 @@ class UserService {
     return Response.success(res, statusCode?.OK, { user, token }, 'You have authenticated successfully')
   }
 
+  static async refresh (res, userId) {
+    const user = await UserRepository.getById(userId)
+    if (!user) {
+      return Response.error(res, statusCode?.NOT_FOUND, 'Client does not exist')
+    }
+    // Generate a token to the session
+    const token = Token.generate(userId, 'user')
+    return Response.success(res, statusCode?.OK, { user, token }, 'You have authenticated successfully')
+  }
+
   static async search (res, parameter) {
     const users = await UserRepository.search(parameter)
     if (users?.length === 0) {

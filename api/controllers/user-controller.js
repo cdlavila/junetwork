@@ -22,6 +22,14 @@ class UserController {
     }
   }
 
+  static async refresh (req, res) {
+    try {
+      return await UserService.refresh(res, req?.user?.id)
+    } catch (error) {
+      return Response.error(res, statusCode?.SERVER_ERROR, error)
+    }
+  }
+
   static async search (req, res) {
     try {
       return await UserService.search(res, req?.query?.parameter)

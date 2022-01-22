@@ -33,12 +33,11 @@ class UserRepository {
 
   static async delete (followerId, followedId) {
     return Follower.destroy({
-        where: {
-          follower_id: followerId,
-          followed_id: followedId
-        }
+      where: {
+        follower_id: followerId,
+        followed_id: followedId
       }
-    )
+    })
   }
 }
 
