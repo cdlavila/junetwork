@@ -32,7 +32,7 @@ class UserController {
 
   static async search (req, res) {
     try {
-      return await UserService.search(res, req?.query?.parameter)
+      return await UserService.search(res, req?.query?.parameter, req?.user?.id)
     } catch (error) {
       return Response.error(res, statusCode?.SERVER_ERROR, error)
     }
@@ -48,7 +48,7 @@ class UserController {
 
   static async getById (req, res) {
     try {
-      return await UserService.getById(res, req?.params?.id)
+      return await UserService.getById(res, req?.params?.id, req?.user?.id)
     } catch (error) {
       return Response.error(res, statusCode?.SERVER_ERROR, error)
     }

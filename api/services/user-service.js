@@ -5,8 +5,9 @@ const statusCode = require('../helpers/status-code')
 const Response = require('../helpers/response')
 const Token = require('../helpers/token')
 
-// Repository
+// Repositories
 const UserRepository = require('../repositories/user-repository')
+const FollowerRepository = require('../repositories/follower-repository')
 
 class UserService {
   static async signUp (res, data) {
@@ -42,18 +43,26 @@ class UserService {
     return Response.success(res, statusCode?.OK, { user, token }, 'You have authenticated successfully')
   }
 
-  static async search (res, parameter) {
+  static async search (res, parameter, userId) {
     const users = await UserRepository.search(parameter)
     if (users?.length === 0) {
       return Response.error(res, statusCode?.NOT_FOUND, 'No user found')
     }
+    for (let user of users) {
+      const follower = await FollowerRepository.get(userId, user?.id)
+      user.dataValues.is_followed_by_me = follower !== null
+    }
     return Response.success(res, statusCode?.OK, users, 'Users list found')
   }
 
-  static async getById (res, id) {
-    const user = await UserRepository.getById(id)
+  static async getById (res, id, userId = null) {
+    let user = await UserRepository.getById(id)
     if (!user) {
       return Response.error(res, statusCode?.NOT_FOUND, 'No user with this id exists')
+    }
+    if (userId) {
+      const follower = await FollowerRepository.get(userId, id)
+      user.dataValues.is_followed_by_me = follower !== null
     }
     return Response.success(res, statusCode?.OK, user, `User of id: ${id}`)
   }
