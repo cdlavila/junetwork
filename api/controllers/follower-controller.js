@@ -8,7 +8,7 @@ const FollowerService = require('../services/follower-service')
 class FollowerController {
   static async toggle (req, res) {
     try {
-      return await FollowerService.toggle(res, req?.user?.id, req?.params?.followedId)
+      return await FollowerService.toggle(res, req?.user?.id, req?.body?.followed_id)
     } catch (error) {
       return Response.error(res, statusCode?.SERVER_ERROR, error)
     }
