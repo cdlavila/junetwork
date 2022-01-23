@@ -6,9 +6,9 @@ const Response = require('../helpers/response')
 const FollowerService = require('../services/follower-service')
 
 class FollowerController {
-  static async create (req, res) {
+  static async toggle (req, res) {
     try {
-      return await FollowerService.create(res, req?.user?.id, req?.params?.followedId)
+      return await FollowerService.toggle(res, req?.user?.id, req?.params?.followedId)
     } catch (error) {
       return Response.error(res, statusCode?.SERVER_ERROR, error)
     }
@@ -41,14 +41,6 @@ class FollowerController {
   static async getFollowing (req, res) {
     try {
       return await FollowerService.getFollowing(res, req?.params?.userId)
-    } catch (error) {
-      return Response.error(res, statusCode?.SERVER_ERROR, error)
-    }
-  }
-
-  static async delete (req, res) {
-    try {
-      return await FollowerService.delete(res, req?.user?.id, req?.params?.followedId)
     } catch (error) {
       return Response.error(res, statusCode?.SERVER_ERROR, error)
     }

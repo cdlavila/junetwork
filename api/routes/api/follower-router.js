@@ -4,11 +4,10 @@ const checkAuthentication = require('../../middlewares/check-authentication')
 const checkRoles = require('../../middlewares/check-roles')
 
 // Authenticated
-router.post('/:followedId', checkAuthentication, checkRoles(['user']), FollowerController.create)
+router.post('/toggle/:followedId', checkAuthentication, checkRoles(['user']), FollowerController.toggle)
 router.get('/me/followers', checkAuthentication, checkRoles(['user']), FollowerController.getMyFollowers)
 router.get('/me/following', checkAuthentication, checkRoles(['user']), FollowerController.getWhoIAmFollowing)
-router.get('/followers/:userId', checkAuthentication, checkRoles(['user']), FollowerController.getFollowers)
-router.get('/following/:userId', checkAuthentication, checkRoles(['user']), FollowerController.getFollowing)
-router.delete('/:followedId', checkAuthentication, checkRoles(['user']), FollowerController.delete)
+router.get('/by-user/followers/:userId', checkAuthentication, checkRoles(['user']), FollowerController.getFollowers)
+router.get('/by-user/following/:userId', checkAuthentication, checkRoles(['user']), FollowerController.getFollowing)
 
 module.exports = router

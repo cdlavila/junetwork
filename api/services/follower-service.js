@@ -6,9 +6,15 @@ const Response = require('../helpers/response')
 const FollowerRepository = require('../repositories/follower-repository')
 
 class FollowerService {
-  static async create (res, followerId, followedId) {
-    const follower = await FollowerRepository.create(followerId, followedId)
-    return Response.success(res, statusCode?.CREATED, follower, 'Follower created successfully')
+  static async toggle (res, followerId, followedId) {
+    const follower = await FollowerRepository.get(followerId, followedId)
+    if (!follower) { // Create
+      const newFollower = await FollowerRepository.create(followerId, followedId)
+      return Response.success(res, statusCode?.CREATED, newFollower, 'Follower created successfully')
+    } else { // Delete
+      await FollowerRepository.delete(followerId, followedId)
+      return Response.success(res, statusCode?.NO_CONTENT)
+    }
   }
 
   static async getFollowers (res, followedId) {
@@ -19,11 +25,6 @@ class FollowerService {
   static async getFollowing (res, followerId) {
     const following = await FollowerRepository.getFollowing(followerId)
     return Response.success(res, statusCode?.OK, following, 'Following')
-  }
-
-  static async delete (res, followerId, followedId) {
-    await FollowerRepository.delete(followerId, followedId)
-    return Response.success(res, statusCode?.NO_CONTENT)
   }
 }
 

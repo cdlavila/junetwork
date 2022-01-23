@@ -9,6 +9,15 @@ class UserRepository {
     })
   }
 
+  static async get (followerId, followedId) {
+    return Follower.findOne({
+      where: {
+        follower_id: followerId,
+        followed_id: followedId
+      }
+    })
+  }
+
   static async getFollowers (followedId) {
     return Follower.findAll({
       where: { followed_id: followedId },
