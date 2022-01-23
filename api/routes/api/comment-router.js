@@ -5,6 +5,7 @@ const checkRoles = require('../../middlewares/check-roles')
 
 // Authenticated
 router.post('/', checkAuthentication, checkRoles(['user']), CommentController.create)
+router.get('/by-post/:postId', checkAuthentication, checkRoles(['user']), CommentController.getByPost)
 router.put('/:id', checkAuthentication, checkRoles(['user']), CommentController.update)
 router.delete('/:id', checkAuthentication, checkRoles(['user']), CommentController.delete)
 

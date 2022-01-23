@@ -11,6 +11,11 @@ class CommentService {
     return Response.success(res, statusCode?.CREATED, comment, 'The comment has been successfully created')
   }
 
+  static async getByPost (res, postId) {
+    const comments = await CommentRepository.getByPost(postId)
+    return Response.success(res, statusCode?.OK, comments, `Comments list of the post of id: ${postId}`)
+  }
+
   static async update (res, data, id, userId) {
     let comment = await CommentRepository.getById(id)
     if (!comment) {

@@ -14,6 +14,14 @@ class CommentController {
     }
   }
 
+  static async getByPost (req, res) {
+    try {
+      return await CommentService.getByPost(res, req?.params?.postId)
+    } catch (error) {
+      return Response.error(res, statusCode?.SERVER_ERROR, error)
+    }
+  }
+
   static async update (req, res) {
     try {
       return await CommentService.update(res, req?.body, req?.params?.id, req?.user?.id)

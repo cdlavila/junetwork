@@ -1,5 +1,5 @@
 // Models
-const { Comment } = require('../database/models/index')
+const { Comment, User } = require('../database/models/index')
 
 class CommentRepository {
   static async create (data) {
@@ -10,11 +10,22 @@ class CommentRepository {
     return Comment.findByPk(id)
   }
 
+  static async getByPost (postId){
+    return Comment.findAll({
+      where: { post_id: postId },
+      attributes: { exclude: ['post_id', 'user_id'] },
+      include: {
+        model: User,
+        as: 'user',
+        attributes: ['id', 'name', 'picture']
+      }
+    })
+  }
+
   static async getCountByPost (postId){
-    const { count } = await Comment.findAndCountAll({
+    return Comment.count({
       where: { post_id: postId }
     })
-    return count
   }
 
   static async update (data, id) {
