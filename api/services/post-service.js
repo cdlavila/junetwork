@@ -16,10 +16,8 @@ class PostService {
   static async getNews (res, userId) {
     const posts = await PostRepository.getNews(userId)
     for (const post of posts) {
-      const reactions = await ReactionRepository.getCountByPost(post?.id)
-      const comments = await CommentRepository.getCountByPost(post?.id)
-      post.dataValues.reactions = reactions
-      post.dataValues.comments = comments
+      post.dataValues.reactions = await ReactionRepository.getCountByPost(post?.id)
+      post.dataValues.comments = await CommentRepository.getCountByPost(post?.id)
     }
     return Response.success(res, statusCode?.OK, posts, `News for user of id: ${userId}`)
   }
@@ -27,10 +25,8 @@ class PostService {
   static async getByUser (res, userId) {
     const posts = await PostRepository.getByUser(userId)
     for (const post of posts) {
-      const reactions = await ReactionRepository.getCountByPost(post?.id)
-      const comments = await CommentRepository.getCountByPost(post?.id)
-      post.dataValues.reactions = reactions
-      post.dataValues.comments = comments
+      post.dataValues.reactions = await ReactionRepository.getCountByPost(post?.id)
+      post.dataValues.comments = await CommentRepository.getCountByPost(post?.id)
     }
     return Response.success(res, statusCode?.OK, posts, `Posts of user of id: ${userId}`)
   }

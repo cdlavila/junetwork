@@ -4,6 +4,7 @@ const Response = require('../helpers/response')
 
 // Repository
 const CommentRepository = require('../repositories/comment-repository')
+const ReactionRepository = require('../repositories/reaction-repository')
 
 class CommentService {
   static async create (res, data, userId) {
@@ -13,6 +14,9 @@ class CommentService {
 
   static async getByPost (res, postId) {
     const comments = await CommentRepository.getByPost(postId)
+    for (const comment of comments) {
+      comment.dataValues.reactions = await ReactionRepository.getCountByComment(comment?.id)
+    }
     return Response.success(res, statusCode?.OK, comments, `Comments list of the post of id: ${postId}`)
   }
 
