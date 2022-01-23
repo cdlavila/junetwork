@@ -10,6 +10,13 @@ class CommentRepository {
     return Comment.findByPk(id)
   }
 
+  static async getCountByPost (postId){
+    const { count } = await Comment.findAndCountAll({
+      where: { post_id: postId }
+    })
+    return count
+  }
+
   static async update (data, id) {
     return Comment.update(data, {
       where: { id }

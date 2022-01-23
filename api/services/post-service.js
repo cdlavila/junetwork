@@ -4,6 +4,8 @@ const Response = require('../helpers/response')
 
 // Repository
 const PostRepository = require('../repositories/post-repository')
+const CommentRepository = require('../repositories/comment-repository')
+const ReactionRepository = require('../repositories/reaction-repository')
 
 class PostService {
   static async create (res, data, userId) {
@@ -13,11 +15,23 @@ class PostService {
 
   static async getNews (res, userId) {
     const posts = await PostRepository.getNews(userId)
+    for (const post of posts) {
+      const reactions = await ReactionRepository.getCountByPost(post?.id)
+      const comments = await CommentRepository.getCountByPost(post?.id)
+      post.dataValues.reactions = reactions
+      post.dataValues.comments = comments
+    }
     return Response.success(res, statusCode?.OK, posts, `News for user of id: ${userId}`)
   }
 
   static async getByUser (res, userId) {
     const posts = await PostRepository.getByUser(userId)
+    for (const post of posts) {
+      const reactions = await ReactionRepository.getCountByPost(post?.id)
+      const comments = await CommentRepository.getCountByPost(post?.id)
+      post.dataValues.reactions = reactions
+      post.dataValues.comments = comments
+    }
     return Response.success(res, statusCode?.OK, posts, `Posts of user of id: ${userId}`)
   }
 

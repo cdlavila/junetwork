@@ -48,7 +48,7 @@ class UserService {
     if (users?.length === 0) {
       return Response.error(res, statusCode?.NOT_FOUND, 'No user found')
     }
-    for (let user of users) {
+    for (const user of users) {
       const follower = await FollowerRepository.get(userId, user?.id)
       user.dataValues.is_followed_by_me = follower !== null
     }
@@ -56,7 +56,7 @@ class UserService {
   }
 
   static async getById (res, id, userId = null) {
-    let user = await UserRepository.getById(id)
+    const user = await UserRepository.getById(id)
     if (!user) {
       return Response.error(res, statusCode?.NOT_FOUND, 'No user with this id exists')
     }
