@@ -16,7 +16,7 @@ class CommentController {
 
   static async getByPost (req, res) {
     try {
-      return await CommentService.getByPost(res, req?.params?.postId)
+      return await CommentService.getByPost(res, req?.params?.postId, req?.user?.id)
     } catch (error) {
       return Response.error(res, statusCode?.SERVER_ERROR, error)
     }

@@ -18,15 +18,21 @@ class PostService {
     for (const post of posts) {
       post.dataValues.reactions = await ReactionRepository.getCountByPost(post?.id)
       post.dataValues.comments = await CommentRepository.getCountByPost(post?.id)
+      const reaction = await ReactionRepository.get({ post_id: post?.id, user_id: userId })
+      post.dataValues.is_reacted_by_me = reaction !== null
+      post.dataValues.emoji_reacted_by_me = reaction?.emoji || null
     }
     return Response.success(res, statusCode?.OK, posts, `News for user of id: ${userId}`)
   }
 
-  static async getByUser (res, userId) {
+  static async getByUser (res, userId, myId = null) {
     const posts = await PostRepository.getByUser(userId)
     for (const post of posts) {
       post.dataValues.reactions = await ReactionRepository.getCountByPost(post?.id)
       post.dataValues.comments = await CommentRepository.getCountByPost(post?.id)
+      const reaction = await ReactionRepository.get({ post_id: post?.id, user_id: myId || userId })
+      post.dataValues.is_reacted_by_me = reaction !== null
+      post.dataValues.emoji_reacted_by_me = reaction?.emoji || null
     }
     return Response.success(res, statusCode?.OK, posts, `Posts of user of id: ${userId}`)
   }

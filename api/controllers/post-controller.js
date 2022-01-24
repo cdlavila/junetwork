@@ -32,7 +32,7 @@ class PostController {
 
   static async getByUser (req, res) {
     try {
-      return await PostService.getByUser(res, req?.params?.userId)
+      return await PostService.getByUser(res, req?.params?.userId, req?.user?.id)
     } catch (error) {
       return Response.error(res, statusCode?.SERVER_ERROR, error)
     }

@@ -12,10 +12,13 @@ class CommentService {
     return Response.success(res, statusCode?.CREATED, comment, 'The comment has been successfully created')
   }
 
-  static async getByPost (res, postId) {
+  static async getByPost (res, postId, userId) {
     const comments = await CommentRepository.getByPost(postId)
     for (const comment of comments) {
       comment.dataValues.reactions = await ReactionRepository.getCountByComment(comment?.id)
+      const reaction = await ReactionRepository.get({ comment_id: comment?.id, user_id: userId })
+      comment.dataValues.is_reacted_by_me = reaction !== null
+      comment.dataValues.emoji_reacted_by_me = reaction?.emoji || null
     }
     return Response.success(res, statusCode?.OK, comments, `Comments list of the post of id: ${postId}`)
   }
