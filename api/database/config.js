@@ -23,8 +23,10 @@ module.exports = {
     url: process.env.DB_URL,
     dialect: 'postgres',
     logging: false,
-    ssl: {
-      rejectUnauthorized: false
+    dialectOptions: {
+      ssl: {
+        rejectUnauthorized: false
+      }
     },
     define: {
       timestamps: false,
