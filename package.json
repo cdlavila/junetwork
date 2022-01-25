@@ -7,7 +7,7 @@
     "start": "node index.js",
     "development": "nodemon index.js",
     "db:migrate:development": "sequelize db:migrate --env development",
-    "db:migrate:production": "sequelize db:migrate --env production",
+    "db:migrate:production": "sequelize-cli db:migrate",
     "db:seed:development": "sequelize db:seed:all --env development",
     "db:rollback:development": "sequelize db:migrate:undo:all --env development",
     "db:update:development": "sequelize db:migrate:undo:all --env development && sequelize db:migrate --env development && sequelize db:seed:all --env development",
