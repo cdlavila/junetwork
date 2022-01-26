@@ -22,6 +22,22 @@ class UserController {
     }
   }
 
+  static async requestRecoveryPassword (req, res) {
+    try {
+      return await UserService.requestRecoveryPassword(res, req?.body?.email)
+    } catch (error) {
+      return Response.error(res, statusCode?.SERVER_ERROR, error)
+    }
+  }
+
+  static async recoveryPassword (req, res) {
+    try {
+      return await UserService.recoveryPassword(res, req?.body?.email, req?.body?.code, req?.body?.password)
+    } catch (error) {
+      return Response.error(res, statusCode?.SERVER_ERROR, error)
+    }
+  }
+
   static async refresh (req, res) {
     try {
       return await UserService.refresh(res, req?.user?.id)

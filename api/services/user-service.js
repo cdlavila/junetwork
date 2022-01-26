@@ -5,9 +5,14 @@ const statusCode = require('../helpers/status-code')
 const Response = require('../helpers/response')
 const Token = require('../helpers/token')
 
+// Utils
+const nodemailer = require('../utils/nodemailer')
+const redis = require('../utils/redis')
+
 // Repositories
 const UserRepository = require('../repositories/user-repository')
 const FollowerRepository = require('../repositories/follower-repository')
+const { promisify } = require('util')
 
 class UserService {
   static async signUp (res, data) {
@@ -31,6 +36,38 @@ class UserService {
     // Generate a token to the session
     const token = Token.generate(user?.id, 'user')
     return Response.success(res, statusCode?.OK, { user, token }, 'You have authenticated successfully')
+  }
+
+  static async requestRecoveryPassword (res, email) {
+    // Find user by email
+    const user = await UserRepository.getByEmail(email)
+    if (!user) {
+      return Response.error(res, statusCode?.NOT_FOUND, 'No user with this email exists')
+    }
+    // Generate the random code
+    const code = Math.floor(Math.random() * (999999 - 100000) + 100000)
+    const message = await nodemailer.sendEmail(email, 'Recovery password',
+      `Your code to recovery the password is: <h2>${code}</h2>`, true)
+
+    if (!message)
+      return Response.error(res, statusCode?.SERVER_ERROR, 'An error occurred while sending the email')
+
+    // Save the code in Redis for 300 seconds (5 min)
+    await redis.setex(`recovery_password_code_for_user_${email}`, 300, code)
+
+    return Response.success(res, statusCode?.OK, null, 'Code sent successfully')
+  }
+
+  static async recoveryPassword (res, email, code, password) {
+    // Check the existence of code in Redis
+    const getAsyncRedis = promisify(redis.get).bind(redis)
+    const cachedCode = await getAsyncRedis(`recovery_password_code_for_user_${email}`)
+    if (!cachedCode || cachedCode !== code) {
+      return Response.error(res, statusCode?.PERMISSION_DENIED, 'The code is not correct or it has expired')
+    }
+    const user = await UserRepository.getByEmail(email)
+    await UserRepository.update({ password }, user?.id)
+    return Response.success(res, statusCode?.OK, { ...user.dataValues, password }, 'Password reestablished successfully')
   }
 
   static async refresh (res, userId) {
