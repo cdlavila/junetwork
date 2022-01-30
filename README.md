@@ -24,7 +24,7 @@ If you install Docker Desktop (on Windows and Mac), it comes with docker compose
 #### Step 1
 Clone the project
 ```
-$ git clone https://github.com/cdlavila/Social-network-API
+$ git clone https://github.com/cdlavila/social-network-API
 ```
 
 #### Step 2
