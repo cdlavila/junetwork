@@ -16,7 +16,7 @@ class UserController {
 
   static async signIn (req, res) {
     try {
-      return await UserService.signIn(res, req?.body)
+      return await UserService.signIn(res, req?.body?.email, req?.body?.password)
     } catch (error) {
       return Response.error(res, statusCode?.SERVER_ERROR, error)
     }
@@ -72,7 +72,7 @@ class UserController {
 
   static async getMyself (req, res) {
     try {
-      return await UserService.getById(res, req?.user?.id)
+      return await UserService.getMyself(res, req?.user?.id)
     } catch (error) {
       return Response.error(res, statusCode?.SERVER_ERROR, error)
     }
@@ -86,17 +86,17 @@ class UserController {
     }
   }
 
-  static async update (req, res) {
+  static async updateMySelf (req, res) {
     try {
-      return await UserService.update(res, req?.body, req?.user?.id)
+      return await UserService.updateMySelf(res, req?.body, req?.user?.id)
     } catch (error) {
       return Response.error(res, statusCode?.SERVER_ERROR, error)
     }
   }
 
-  static async delete (req, res) {
+  static async deleteMySelf (req, res) {
     try {
-      return await UserService.delete(res, req?.user?.id)
+      return await UserService.deleteMySelf(res, req?.user?.id)
     } catch (error) {
       return Response.error(res, statusCode?.SERVER_ERROR, error)
     }

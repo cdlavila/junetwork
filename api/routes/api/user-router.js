@@ -16,7 +16,7 @@ router.get('/refresh', checkAuthentication, checkRoles(['user']), UserController
 router.get('/search', checkAuthentication, checkRoles(['user']), UserController.search)
 router.get('/myself', checkAuthentication, checkRoles(['user']), UserController.getMyself)
 router.get('/:id', checkAuthentication, checkRoles(['user']), UserController.getById)
-router.put('/', checkAuthentication, checkRoles(['user']), UserController.update)
-router.delete('/', checkAuthentication, checkRoles(['user']), UserController.delete)
+router.put('/myself', checkAuthentication, checkRoles(['user']), UserController.updateMySelf)
+router.delete('/myself', checkAuthentication, checkRoles(['user']), UserController.deleteMySelf)
 
 module.exports = router
