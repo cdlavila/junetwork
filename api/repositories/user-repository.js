@@ -20,6 +20,12 @@ class UserRepository {
     })
   }
 
+  static async getByPhone (phone) {
+    return User.findOne({
+      where: { phone }
+    })
+  }
+
   static async search (parameter) {
     return User.findAll({
       where: {

@@ -8,6 +8,7 @@ const Token = require('../helpers/token')
 // Utils
 const nodemailer = require('../utils/nodemailer')
 const redis = require('../utils/redis')
+const twilio = require('../utils/twilio')
 
 // Repositories
 const UserRepository = require('../repositories/user-repository')
@@ -31,6 +32,42 @@ class UserService {
     const isMatch = bcrypt.compareSync(data?.password, user?.password)
     if (!isMatch) {
       return Response.error(res, statusCode?.NOT_AUTHORIZED, 'Email and password do not match')
+    }
+
+    // Generate a token to the session
+    const token = Token.generate(user?.id, 'user')
+    return Response.success(res, statusCode?.OK, { user, token }, 'You have authenticated successfully')
+  }
+
+  static async requestSignInWithPhone (res, phone, service) {
+    // Find user by phone
+    const user = await UserRepository.getByPhone(phone)
+    if (!user) {
+      return Response.error(res, statusCode?.NOT_FOUND, 'No user with this phone exists')
+    }
+
+    // Generate the random code and send it to the user
+    const code = Math.floor(Math.random() * (999999 - 100000) + 100000)
+    service === 'whatsapp' ? await twilio.sendCodeByWhatsApp(phone, code) : await twilio.sendCodeBySms(phone, code)
+
+    // Save the code in Redis for 300 seconds (5 min)
+    await redis.setex(`sign_in_code_for_user_${phone}`, 300, code)
+
+    return Response.success(res, statusCode?.OK, null, 'Code sent successfully')
+  }
+
+  static async signInWithPhone (res, phone, code) {
+    // Find user by phone
+    const user = await UserRepository.getByPhone(phone)
+    if (!user) {
+      return Response.error(res, statusCode?.NOT_FOUND, 'No user with this phone exists')
+    }
+
+    // Check the existence of code in Redis
+    const getAsyncRedis = promisify(redis.get).bind(redis)
+    const cachedCode = await getAsyncRedis(`sign_in_code_for_user_${phone}`)
+    if (!cachedCode || cachedCode !== code) {
+      return Response.error(res, statusCode?.PERMISSION_DENIED, 'The code is not correct or it has expired')
     }
 
     // Generate a token to the session

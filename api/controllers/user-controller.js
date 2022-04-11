@@ -22,6 +22,22 @@ class UserController {
     }
   }
 
+  static async requestSignInWithPhone (req, res) {
+    try {
+      return await UserService.requestSignInWithPhone(res, req?.body?.phone, req?.body?.service)
+    } catch (error) {
+      return Response.error(res, statusCode?.SERVER_ERROR, error)
+    }
+  }
+
+  static async signInWithPhone (req, res) {
+    try {
+      return await UserService.signInWithPhone(res, req?.body?.phone, req?.body?.code)
+    } catch (error) {
+      return Response.error(res, statusCode?.SERVER_ERROR, error)
+    }
+  }
+
   static async requestRecoveryPassword (req, res) {
     try {
       return await UserService.requestRecoveryPassword(res, req?.body?.email)

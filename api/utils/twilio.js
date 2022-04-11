@@ -4,7 +4,7 @@ const client = require('twilio')(accountSid, authToken);
 
 class Twilio {
   static async sendCodeBySms(phone, code) {
-    return await client.messages
+    await client.messages
       .create({
         from: `${process.env.TWILIO_PHONE}`,
         body: `Your code is ${code}`,
@@ -12,7 +12,7 @@ class Twilio {
       })
   }
   static async sendCodeByWhatsApp(phone, code) {
-    return await client.messages
+    await client.messages
       .create({
         from: `whatsapp:${process.env.TWILIO_WHATSAPP}`,
         body: `Your code is ${code}`,
