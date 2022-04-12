@@ -10,14 +10,14 @@ async function checkAuthentication (req, res, next) {
   try {
     // Validate that token was sent
     if (!req?.headers?.authorization) {
-      return Response.error(res, statusCode?.NOT_AUTHORIZED, 'Token is required')
+      return Response.error(res, statusCode?.NOT_AUTHORIZED, ['Token is required'])
     }
 
     // Validate token structure
     const bearer = req?.headers?.authorization.split(' ')[0]
 
     if (bearer !== 'Bearer') {
-      return Response.error(res, statusCode?.NOT_AUTHORIZED, 'Token structure is invalid')
+      return Response.error(res, statusCode?.NOT_AUTHORIZED, ['Token structure is invalid'])
     }
 
     // Verify token
@@ -36,7 +36,7 @@ async function checkAuthentication (req, res, next) {
 
     // Validate that user still exits
     if (!user) {
-      return Response.error(res, statusCode?.NOT_AUTHORIZED, 'The user no longer exists')
+      return Response.error(res, statusCode?.NOT_AUTHORIZED, ['The user no longer exists'])
     }
 
     req.user = user.dataValues

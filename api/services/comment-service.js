@@ -26,10 +26,10 @@ class CommentService {
   static async update (res, data, id, userId) {
     let comment = await CommentRepository.getById(id)
     if (!comment) {
-      return Response.error(res, statusCode?.NOT_FOUND, 'No comment with this id exists')
+      return Response.error(res, statusCode?.NOT_FOUND, ['No comment with this id exists'])
     }
     if (comment?.user_id !== userId) {
-      return Response.error(res, statusCode?.PERMISSION_DENIED, 'You cannot update this comment because it does not belong to you')
+      return Response.error(res, statusCode?.PERMISSION_DENIED, ['You cannot update this comment because it does not belong to you'])
     }
     await CommentRepository.update({ ...data, post_id: comment.post_id, user_id: userId}, id)
     comment = await CommentRepository.getById(id)
@@ -39,10 +39,10 @@ class CommentService {
   static async delete (res, id, userId) {
     const comment = await CommentRepository.getById(id)
     if (!comment) {
-      return Response.error(res, statusCode?.NOT_FOUND, 'No comment with this id exists')
+      return Response.error(res, statusCode?.NOT_FOUND, ['No comment with this id exists'])
     }
     if (comment?.user_id !== userId) {
-      return Response.error(res, statusCode?.PERMISSION_DENIED, 'You cannot delete this comment because it does not belong to you')
+      return Response.error(res, statusCode?.PERMISSION_DENIED, ['You cannot delete this comment because it does not belong to you'])
     }
     await CommentRepository.delete(id)
     return Response.success(res, statusCode?.NO_CONTENT)

@@ -25,13 +25,13 @@ class UserService {
     // Find user by email
     const user = await UserRepository.getByEmail(email)
     if (!user) {
-      return Response.error(res, statusCode?.NOT_FOUND, 'No user with this email exists')
+      return Response.error(res, statusCode?.NOT_FOUND, ['No user with this email exists'])
     }
 
     // Validate password
     const isMatch = bcrypt.compareSync(password, user?.password)
     if (!isMatch) {
-      return Response.error(res, statusCode?.NOT_AUTHORIZED, 'Email and password do not match')
+      return Response.error(res, statusCode?.NOT_AUTHORIZED, ['Email and password do not match'])
     }
 
     // Generate a token to the session
@@ -43,7 +43,7 @@ class UserService {
     // Find user by phone
     const user = await UserRepository.getByPhone(phone)
     if (!user) {
-      return Response.error(res, statusCode?.NOT_FOUND, 'No user with this phone exists')
+      return Response.error(res, statusCode?.NOT_FOUND, ['No user with this phone exists'])
     }
 
     // Generate the random code and send it to the user
@@ -60,14 +60,14 @@ class UserService {
     // Find user by phone
     const user = await UserRepository.getByPhone(phone)
     if (!user) {
-      return Response.error(res, statusCode?.NOT_FOUND, 'No user with this phone exists')
+      return Response.error(res, statusCode?.NOT_FOUND, ['No user with this phone exists'])
     }
 
     // Check the existence of code in Redis
     const getAsyncRedis = promisify(redis.get).bind(redis)
     const cachedCode = await getAsyncRedis(`sign_in_code_for_user_${phone}`)
     if (!cachedCode || cachedCode !== code) {
-      return Response.error(res, statusCode?.PERMISSION_DENIED, 'The code is not correct or it has expired')
+      return Response.error(res, statusCode?.PERMISSION_DENIED, ['The code is not correct or it has expired'])
     }
 
     // Generate a token to the session
@@ -79,7 +79,7 @@ class UserService {
     // Find user by email
     const user = await UserRepository.getByEmail(email)
     if (!user) {
-      return Response.error(res, statusCode?.NOT_FOUND, 'No user with this email exists')
+      return Response.error(res, statusCode?.NOT_FOUND, ['No user with this email exists'])
     }
     // Generate the random code
     const code = Math.floor(Math.random() * (999999 - 100000) + 100000)
@@ -87,7 +87,7 @@ class UserService {
       `Your code to recovery the password is: <h2>${code}</h2>`, true)
 
     if (!message)
-      return Response.error(res, statusCode?.SERVER_ERROR, 'An error occurred while sending the email')
+      return Response.error(res, statusCode?.SERVER_ERROR, ['An error occurred while sending the email'])
 
     // Save the code in Redis for 300 seconds (5 min)
     await redis.setex(`recovery_password_code_for_user_${email}`, 300, code)
@@ -100,7 +100,7 @@ class UserService {
     const getAsyncRedis = promisify(redis.get).bind(redis)
     const cachedCode = await getAsyncRedis(`recovery_password_code_for_user_${email}`)
     if (!cachedCode || cachedCode !== code) {
-      return Response.error(res, statusCode?.PERMISSION_DENIED, 'The code is not correct or it has expired')
+      return Response.error(res, statusCode?.PERMISSION_DENIED, ['The code is not correct or it has expired'])
     }
     const user = await UserRepository.getByEmail(email)
     await UserRepository.update({ password }, user?.id)
@@ -110,7 +110,7 @@ class UserService {
   static async refresh (res, id) {
     const user = await UserRepository.getById(id)
     if (!user) {
-      return Response.error(res, statusCode?.NOT_FOUND, 'Client does not exist')
+      return Response.error(res, statusCode?.NOT_FOUND, ['Client does not exist'])
     }
     // Generate a token to the session
     const token = Token.generate(id, 'user')
@@ -120,7 +120,7 @@ class UserService {
   static async search (res, parameter, myId) {
     const users = await UserRepository.search(parameter)
     if (users?.length === 0) {
-      return Response.error(res, statusCode?.NOT_FOUND, 'No user found')
+      return Response.error(res, statusCode?.NOT_FOUND, ['No user found'])
     }
     for (const user of users) {
       const follower = await FollowerRepository.get(myId, user?.id)
@@ -132,7 +132,7 @@ class UserService {
   static async getMyself (res, myId) {
     const user = await UserRepository.getById(myId)
     if (!user) {
-      return Response.error(res, statusCode?.NOT_FOUND, 'No user with this id exists')
+      return Response.error(res, statusCode?.NOT_FOUND, ['No user with this id exists'])
     }
     return Response.success(res, statusCode?.OK, user, 'Your user account')
   }
@@ -140,7 +140,7 @@ class UserService {
   static async getById (res, id, myId) {
     const user = await UserRepository.getById(id)
     if (!user) {
-      return Response.error(res, statusCode?.NOT_FOUND, 'No user with this id exists')
+      return Response.error(res, statusCode?.NOT_FOUND, ['No user with this id exists'])
     }
     const follower = await FollowerRepository.get(myId, id)
     user.dataValues.is_followed_by_me = follower !== null

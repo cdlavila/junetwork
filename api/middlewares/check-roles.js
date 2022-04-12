@@ -9,7 +9,7 @@ function checkRoles (roles) {
       if (roles.includes(req?.userRole)) {
         next()
       } else {
-        return Response.error(res, statusCode?.PERMISSION_DENIED, 'User has not permission for this action')
+        return Response.error(res, statusCode?.PERMISSION_DENIED, ['User has not permission for this action'])
       }
     } catch (error) {
       return Response.error(res, statusCode?.SERVER_ERROR, error)

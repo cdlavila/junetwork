@@ -14,12 +14,12 @@ class Response {
     })
   }
 
-  static error (res, code, error) {
+  static error (res, code, errors) {
     res.status(code || statusCode?.SERVER_ERROR).json({
       data: null,
       code: code,
       message: null,
-      error: error
+      errors: errors?.errors?.map(e => e?.message) || errors?.message? [errors?.message]: errors
     })
   }
 }

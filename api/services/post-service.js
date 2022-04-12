@@ -40,10 +40,10 @@ class PostService {
   static async update (res, data, id, userId) {
     let post = await PostRepository.getById(id)
     if (!post) {
-      return Response.error(res, statusCode?.NOT_FOUND, 'No post with this id exists')
+      return Response.error(res, statusCode?.NOT_FOUND, ['No post with this id exists'])
     }
     if (post?.user_id !== userId) {
-      return Response.error(res, statusCode?.PERMISSION_DENIED, 'You cannot update this post because it does not belong to you')
+      return Response.error(res, statusCode?.PERMISSION_DENIED, ['You cannot update this post because it does not belong to you'])
     }
     await PostRepository.update({ ...data, user_id: userId}, id)
     post = await PostRepository.getById(id)
@@ -53,10 +53,10 @@ class PostService {
   static async delete (res, id, userId) {
     const post = await PostRepository.getById(id)
     if (!post) {
-      return Response.error(res, statusCode?.NOT_FOUND, 'No post with this id exists')
+      return Response.error(res, statusCode?.NOT_FOUND, ['No post with this id exists'])
     }
     if (post?.user_id !== userId) {
-      return Response.error(res, statusCode?.PERMISSION_DENIED, 'You cannot delete this post because it does not belong to you')
+      return Response.error(res, statusCode?.PERMISSION_DENIED, ['You cannot delete this post because it does not belong to you'])
     }
     await PostRepository.delete(id)
     return Response.success(res, statusCode?.NO_CONTENT)

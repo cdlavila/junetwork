@@ -1,7 +1,5 @@
 'use strict'
 
-const bcrypt = require('bcrypt')
-
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable('users', {
@@ -16,10 +14,7 @@ module.exports = {
       },
       picture: {
         type: Sequelize.STRING,
-        allowNull: true,
-        validate: {
-          isUrl: true
-        }
+        allowNull: true
       },
       birthday: {
         type: Sequelize.DATEONLY,
@@ -37,17 +32,11 @@ module.exports = {
       email: {
         type: Sequelize.STRING,
         allowNull: false,
-        unique: true,
-        validate: {
-          isEmail: true
-        }
+        unique: true
       },
       password: {
         type: Sequelize.STRING,
-        allowNull: true,
-        set (value) {
-          this.setDataValue('password', bcrypt.hashSync(value, 12))
-        }
+        allowNull: false
       },
       creation_date: {
         type: Sequelize.DATEONLY,
