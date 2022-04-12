@@ -42,11 +42,13 @@ module.exports = (sequelize, DataTypes) => {
     picture: {
       type: DataTypes.STRING,
       allowNull: true,
+      /*
       validate: {
         isUrl: {
           msg: 'picture must be a valid url'
         }
       }
+       */
     },
     birthday: {
       type: DataTypes.DATEONLY,

@@ -37,11 +37,13 @@ module.exports = (sequelize, DataTypes) => {
     image: {
       type: DataTypes.STRING,
       allowNull: true,
+      /*
       validate: {
         isUrl: {
           msg: 'image must be a valid url'
         }
       }
+       */
     },
     user_id: {
       type: DataTypes.UUID,

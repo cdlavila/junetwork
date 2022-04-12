@@ -117,6 +117,12 @@ class UserService {
     return Response.success(res, statusCode?.OK, { user, token }, 'You have authenticated successfully')
   }
 
+  static async uploadPicture (res, picture, id) {
+    await UserRepository.update({ picture }, id)
+    const user = await UserRepository.getById(id)
+    return Response.success(res, statusCode?.OK, user, 'You have uploaded your profile picture successfully')
+  }
+
   static async search (res, parameter, myId) {
     const users = await UserRepository.search(parameter)
     if (users?.length === 0) {

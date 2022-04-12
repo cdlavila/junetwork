@@ -69,6 +69,15 @@ class UserController {
     }
   }
 
+  static async uploadPicture (req, res) {
+    try {
+      return await UserService.uploadPicture(res, req?.body?.picture, req?.user?.id)
+    } catch (error) {
+      const statusName = error?.name?.includes('Sequelize')? 'BAD_REQUEST' : 'SERVER_ERROR'
+      return Response.error(res, statusCode[statusName], error)
+    }
+  }
+
   static async search (req, res) {
     try {
       return await UserService.search(res, req?.query?.parameter, req?.user?.id)

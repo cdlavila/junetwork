@@ -20,6 +20,9 @@ app.use(cors())
 // API main route
 app.use('/api', apiRouter)
 
+// Statics
+app.use('/public', express.static('public'))
+
 // Server main route
 app.get('/', (req, res) => (
   res.status(200).json({ message: 'Welcome to the social network server' })
