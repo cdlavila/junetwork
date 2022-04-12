@@ -15,24 +15,61 @@ module.exports = (sequelize, DataTypes) => {
     id: {
       primaryKey: true,
       type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4
+      defaultValue: DataTypes.UUIDV4,
+      validate: {
+        isUUID: {
+          args: 4,
+          msg: 'id must be a valid UUID'
+        }
+      }
     },
     body: {
       type: DataTypes.TEXT,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'body is required'
+        },
+        isString(value) {
+          if (typeof value !== 'string') {
+            throw new Error('body must be a string')
+          }
+        }
+      }
     },
     post_id: {
       type: DataTypes.UUID,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'post_id is required'
+        },
+        isUUID: {
+          args: 4,
+          msg: 'post_id must be a valid UUID'
+        }
+      }
     },
     user_id: {
       type: DataTypes.UUID,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'user_id is required'
+        },
+        isUUID: {
+          args: 4,
+          msg: 'user_id must be a valid UUID'
+        }
+      }
     },
     creation_date: {
       type: DataTypes.DATEONLY,
       allowNull: false,
-      defaultValue: new Date()
+      defaultValue: new Date(),
+      set () {
+        this.setDataValue('creation_date', new Date())
+      }
     }
   }, {
     sequelize,

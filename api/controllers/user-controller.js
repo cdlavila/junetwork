@@ -10,7 +10,8 @@ class UserController {
     try {
       return await UserService.signUp(res, req?.body)
     } catch (error) {
-      return Response.error(res, statusCode?.SERVER_ERROR, error)
+      const statusName = error?.name?.includes('Sequelize')? 'BAD_REQUEST' : 'SERVER_ERROR'
+      return Response.error(res, statusCode[statusName], error)
     }
   }
 
@@ -18,7 +19,8 @@ class UserController {
     try {
       return await UserService.signIn(res, req?.body?.email, req?.body?.password)
     } catch (error) {
-      return Response.error(res, statusCode?.SERVER_ERROR, error)
+      const statusName = error?.name?.includes('Sequelize')? 'BAD_REQUEST' : 'SERVER_ERROR'
+      return Response.error(res, statusCode[statusName], error)
     }
   }
 
@@ -26,7 +28,8 @@ class UserController {
     try {
       return await UserService.requestSignInWithPhone(res, req?.body?.phone, req?.body?.service)
     } catch (error) {
-      return Response.error(res, statusCode?.SERVER_ERROR, error)
+      const statusName = error?.name?.includes('Sequelize')? 'BAD_REQUEST' : 'SERVER_ERROR'
+      return Response.error(res, statusCode[statusName], error)
     }
   }
 
@@ -34,7 +37,8 @@ class UserController {
     try {
       return await UserService.signInWithPhone(res, req?.body?.phone, req?.body?.code)
     } catch (error) {
-      return Response.error(res, statusCode?.SERVER_ERROR, error)
+      const statusName = error?.name?.includes('Sequelize')? 'BAD_REQUEST' : 'SERVER_ERROR'
+      return Response.error(res, statusCode[statusName], error)
     }
   }
 
@@ -42,7 +46,8 @@ class UserController {
     try {
       return await UserService.requestRecoveryPassword(res, req?.body?.email)
     } catch (error) {
-      return Response.error(res, statusCode?.SERVER_ERROR, error)
+      const statusName = error?.name?.includes('Sequelize')? 'BAD_REQUEST' : 'SERVER_ERROR'
+      return Response.error(res, statusCode[statusName], error)
     }
   }
 
@@ -50,7 +55,8 @@ class UserController {
     try {
       return await UserService.recoveryPassword(res, req?.body?.email, req?.body?.code, req?.body?.password)
     } catch (error) {
-      return Response.error(res, statusCode?.SERVER_ERROR, error)
+      const statusName = error?.name?.includes('Sequelize')? 'BAD_REQUEST' : 'SERVER_ERROR'
+      return Response.error(res, statusCode[statusName], error)
     }
   }
 
@@ -58,7 +64,8 @@ class UserController {
     try {
       return await UserService.refresh(res, req?.user?.id)
     } catch (error) {
-      return Response.error(res, statusCode?.SERVER_ERROR, error)
+      const statusName = error?.name?.includes('Sequelize')? 'BAD_REQUEST' : 'SERVER_ERROR'
+      return Response.error(res, statusCode[statusName], error)
     }
   }
 
@@ -66,7 +73,8 @@ class UserController {
     try {
       return await UserService.search(res, req?.query?.parameter, req?.user?.id)
     } catch (error) {
-      return Response.error(res, statusCode?.SERVER_ERROR, error)
+      const statusName = error?.name?.includes('Sequelize')? 'BAD_REQUEST' : 'SERVER_ERROR'
+      return Response.error(res, statusCode[statusName], error)
     }
   }
 
@@ -74,7 +82,8 @@ class UserController {
     try {
       return await UserService.getMyself(res, req?.user?.id)
     } catch (error) {
-      return Response.error(res, statusCode?.SERVER_ERROR, error)
+      const statusName = error?.name?.includes('Sequelize')? 'BAD_REQUEST' : 'SERVER_ERROR'
+      return Response.error(res, statusCode[statusName], error)
     }
   }
 
@@ -82,7 +91,8 @@ class UserController {
     try {
       return await UserService.getById(res, req?.params?.id, req?.user?.id)
     } catch (error) {
-      return Response.error(res, statusCode?.SERVER_ERROR, error)
+      const statusName = error?.name?.includes('Sequelize')? 'BAD_REQUEST' : 'SERVER_ERROR'
+      return Response.error(res, statusCode[statusName], error)
     }
   }
 
@@ -90,7 +100,8 @@ class UserController {
     try {
       return await UserService.updateMySelf(res, req?.body, req?.user?.id)
     } catch (error) {
-      return Response.error(res, statusCode?.SERVER_ERROR, error)
+      const statusName = error?.name?.includes('Sequelize')? 'BAD_REQUEST' : 'SERVER_ERROR'
+      return Response.error(res, statusCode[statusName], error)
     }
   }
 
@@ -98,7 +109,8 @@ class UserController {
     try {
       return await UserService.deleteMySelf(res, req?.user?.id)
     } catch (error) {
-      return Response.error(res, statusCode?.SERVER_ERROR, error)
+      const statusName = error?.name?.includes('Sequelize')? 'BAD_REQUEST' : 'SERVER_ERROR'
+      return Response.error(res, statusCode[statusName], error)
     }
   }
 }

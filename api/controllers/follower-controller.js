@@ -10,7 +10,8 @@ class FollowerController {
     try {
       return await FollowerService.toggle(res, req?.user?.id, req?.body?.followed_id)
     } catch (error) {
-      return Response.error(res, statusCode?.SERVER_ERROR, error)
+      const statusName = error?.name?.includes('Sequelize')? 'BAD_REQUEST' : 'SERVER_ERROR'
+      return Response.error(res, statusCode[statusName], error)
     }
   }
 
@@ -18,7 +19,8 @@ class FollowerController {
     try {
       return await FollowerService.getFollowers(res, req?.user?.id)
     } catch (error) {
-      return Response.error(res, statusCode?.SERVER_ERROR, error)
+      const statusName = error?.name?.includes('Sequelize')? 'BAD_REQUEST' : 'SERVER_ERROR'
+      return Response.error(res, statusCode[statusName], error)
     }
   }
 
@@ -26,7 +28,8 @@ class FollowerController {
     try {
       return await FollowerService.getFollowing(res, req?.user?.id)
     } catch (error) {
-      return Response.error(res, statusCode?.SERVER_ERROR, error)
+      const statusName = error?.name?.includes('Sequelize')? 'BAD_REQUEST' : 'SERVER_ERROR'
+      return Response.error(res, statusCode[statusName], error)
     }
   }
 
@@ -34,7 +37,8 @@ class FollowerController {
     try {
       return await FollowerService.getFollowers(res, req?.params?.userId)
     } catch (error) {
-      return Response.error(res, statusCode?.SERVER_ERROR, error)
+      const statusName = error?.name?.includes('Sequelize')? 'BAD_REQUEST' : 'SERVER_ERROR'
+      return Response.error(res, statusCode[statusName], error)
     }
   }
 
@@ -42,7 +46,8 @@ class FollowerController {
     try {
       return await FollowerService.getFollowing(res, req?.params?.userId)
     } catch (error) {
-      return Response.error(res, statusCode?.SERVER_ERROR, error)
+      const statusName = error?.name?.includes('Sequelize')? 'BAD_REQUEST' : 'SERVER_ERROR'
+      return Response.error(res, statusCode[statusName], error)
     }
   }
 }

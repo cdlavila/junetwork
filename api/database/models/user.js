@@ -44,7 +44,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: true,
       validate: {
         isUrl: {
-          msg: 'picture must be an url'
+          msg: 'picture must be a valid url'
         }
       }
     },
@@ -112,7 +112,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         isValid(value) {
           if (typeof value !== 'string' || value?.length < 8 || value.length > 32) {
-            throw new Error('password must be a string and it must be between 8 and 32 characters')
+            throw new Error('password must be a string and be between 8 and 32 characters')
           } else {
             this.setDataValue('password', bcrypt.hashSync(value, 12))
           }

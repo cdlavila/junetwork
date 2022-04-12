@@ -14,20 +14,47 @@ module.exports = (sequelize, DataTypes) => {
     id: {
       primaryKey: true,
       type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4
+      defaultValue: DataTypes.UUIDV4,
+      validate: {
+        isUUID: {
+          args: 4,
+          msg: 'id must be a valid UUID'
+        }
+      }
     },
     follower_id: {
       type: DataTypes.UUID,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'follower_id is required'
+        },
+        isUUID: {
+          args: 4,
+          msg: 'follower_id must be a valid UUID'
+        }
+      }
     },
     followed_id: {
       type: DataTypes.UUID,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'followed_id is required'
+        },
+        isUUID: {
+          args: 4,
+          msg: 'followed_id must be a valid UUID'
+        }
+      }
     },
     creation_date: {
       type: DataTypes.DATEONLY,
       allowNull: false,
-      defaultValue: new Date()
+      defaultValue: new Date(),
+      set () {
+        this.setDataValue('creation_date', new Date())
+      }
     }
   }, {
     sequelize,

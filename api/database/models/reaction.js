@@ -15,23 +15,59 @@ module.exports = (sequelize, DataTypes) => {
     id: {
       primaryKey: true,
       type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4
+      defaultValue: DataTypes.UUIDV4,
+      validate: {
+        isUUID: {
+          args: 4,
+          msg: 'id must be a valid UUID'
+        }
+      }
     },
     emoji: {
       type: DataTypes.ENUM(['like', 'love', 'care', 'haha', 'wow', 'sad', 'angry']),
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'emoji is required'
+        },
+        isIn: {
+          args: [['like', 'love', 'care', 'haha', 'wow', 'sad', 'angry']],
+          msg: 'emoji must be one of the next words: like, love, care, haha, wow, sad, angry'
+        }
+      }
     },
     post_id: {
       type: DataTypes.UUID,
-      allowNull: true
+      allowNull: true,
+      validate: {
+        isUUID: {
+          args: 4,
+          msg: 'post_id must be a valid UUID'
+        }
+      }
     },
     comment_id: {
       type: DataTypes.UUID,
-      allowNull: true
+      allowNull: true,
+      validate: {
+        isUUID: {
+          args: 4,
+          msg: 'comment_id must be a valid UUID'
+        }
+      }
     },
     user_id: {
       type: DataTypes.UUID,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'user_id is required'
+        },
+        isUUID: {
+          args: 4,
+          msg: 'user_id must be a valid UUID'
+        }
+      }
     }
   }, {
     sequelize,

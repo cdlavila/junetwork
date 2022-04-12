@@ -19,7 +19,7 @@ class Response {
       data: null,
       code: code,
       message: null,
-      errors: errors?.errors?.map(e => e?.message) || errors?.message? [errors?.message]: errors
+      errors: errors?.errors?.map(e => e?.message) || errors?.message || errors
     })
   }
 }

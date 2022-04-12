@@ -10,7 +10,8 @@ class ReactionController {
     try {
       return await ReactionService.togglePost(res, req?.body, req?.user?.id)
     } catch (error) {
-      return Response.error(res, statusCode?.SERVER_ERROR, error)
+      const statusName = error?.name?.includes('Sequelize')? 'BAD_REQUEST' : 'SERVER_ERROR'
+      return Response.error(res, statusCode[statusName], error)
     }
   }
 
@@ -18,7 +19,8 @@ class ReactionController {
     try {
       return await ReactionService.toggleComment(res, req?.body, req?.user?.id)
     } catch (error) {
-      return Response.error(res, statusCode?.SERVER_ERROR, error)
+      const statusName = error?.name?.includes('Sequelize')? 'BAD_REQUEST' : 'SERVER_ERROR'
+      return Response.error(res, statusCode[statusName], error)
     }
   }
 
@@ -26,7 +28,8 @@ class ReactionController {
     try {
       return await ReactionService.getByPost(res, req?.params?.postId)
     } catch (error) {
-      return Response.error(res, statusCode?.SERVER_ERROR, error)
+      const statusName = error?.name?.includes('Sequelize')? 'BAD_REQUEST' : 'SERVER_ERROR'
+      return Response.error(res, statusCode[statusName], error)
     }
   }
 
@@ -34,7 +37,8 @@ class ReactionController {
     try {
       return await ReactionService.getByComment(res, req?.params?.commentId)
     } catch (error) {
-      return Response.error(res, statusCode?.SERVER_ERROR, error)
+      const statusName = error?.name?.includes('Sequelize')? 'BAD_REQUEST' : 'SERVER_ERROR'
+      return Response.error(res, statusCode[statusName], error)
     }
   }
 }
