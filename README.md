@@ -1,6 +1,6 @@
-# Social-network-API
+# Social-network
 
-Social-network-API, as its name says, is a REST API of a social network. Its responsibility is manage the data of users, posts, comments, reactions, followers, etc.
+Social-network, as its name says, is a REST API of a social network. Its responsibility is manage the data of users, posts, comments, reactions, followers, etc.
 
 ## Installation
 To install the project, we need to have installed the next:
