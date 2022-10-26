@@ -30,7 +30,6 @@ app.get('/', (req, res) => (
 
 app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`)
-  // Check connection with database
   sequelize.sync().then(() => {
     console.log('Connection has been established successfully')
   }).catch(error => {
