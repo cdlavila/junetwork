@@ -1,4 +1,4 @@
-# Social-network
+# Junetwork
 
 Social-network, as its name says, is a REST API of a social network. Its responsibility is manage the data of users, posts, comments, reactions, followers, etc.
 
@@ -24,7 +24,7 @@ If you install Docker Desktop (on Windows and Mac), it comes with docker compose
 #### Step 1
 Clone the project
 ```
-$ git clone https://github.com/cdlavila/social-network-API
+$ git clone https://github.com/cdlavila/junetwork
 ```
 
 #### Step 2
@@ -65,4 +65,4 @@ Check server is running, by clicking on the link that appears in the terminal
 #### Step 8
 Testing endpoints in Postman
 
-[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/678cd5aed899f84b83c4?action=collection%2Fimport)
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://documenter.getpostman.com/view/14110882/2s847ESaNQ)
