@@ -28,12 +28,9 @@ app.get('/', (req, res) => (
   res.status(200).json({ message: 'Welcome to the social network server' })
 ))
 
-app.listen(port, () => {
+app.listen(port, async () => {
   console.log(`Server listening at http://localhost:${port}`)
-  sequelize.sync().then(() => {
-    console.log('Connection has been established successfully')
-  }).catch(error => {
-    console.log('Connection has not been established successfully')
-    console.log('Error: ', error)
-  })
+  await sequelize.sync()
 })
+
+module.exports = app
