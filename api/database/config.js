@@ -2,7 +2,7 @@ require('dotenv').config()
 
 module.exports = {
   development: {
-    url: process.env.DATABASE_URL,
+    url: `postgres://${process.env.DATABASE_USER}:${process.env.DATABASE_PASSWORD}@localhost:5432/${process.env.DATABASE_NAME}`,
     dialect: 'postgres',
     logging: false,
     define: {
@@ -11,7 +11,7 @@ module.exports = {
     }
   },
   test: {
-    url: process.env.DATABASE_URL,
+    url: `postgres://${process.env.DATABASE_USER}:${process.env.DATABASE_PASSWORD}@localhost:5432/${process.env.DATABASE_NAME}`,
     dialect: 'postgres',
     logging: false,
     define: {
