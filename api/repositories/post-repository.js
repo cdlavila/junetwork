@@ -26,13 +26,12 @@ class PostRepository {
     })
   }
 
-
   static async getById (id) {
     return Post.findByPk(id)
   }
 
   static async getByUser (userId) {
-    return Post.findAll({ where: { user_id: userId} })
+    return Post.findAll({ where: { user_id: userId } })
   }
 
   static async update (data, id) {

@@ -10,7 +10,7 @@ class PostController {
     try {
       return await PostService.create(res, req?.body, req?.user?.id)
     } catch (error) {
-      const statusName = error?.name?.includes('Sequelize')? 'BAD_REQUEST' : 'SERVER_ERROR'
+      const statusName = error?.name?.includes('Sequelize') ? 'BAD_REQUEST' : 'SERVER_ERROR'
       return Response.error(res, statusCode[statusName], error)
     }
   }
@@ -19,7 +19,7 @@ class PostController {
     try {
       return await PostService.getNews(res, req?.user?.id)
     } catch (error) {
-      const statusName = error?.name?.includes('Sequelize')? 'BAD_REQUEST' : 'SERVER_ERROR'
+      const statusName = error?.name?.includes('Sequelize') ? 'BAD_REQUEST' : 'SERVER_ERROR'
       return Response.error(res, statusCode[statusName], error)
     }
   }
@@ -28,7 +28,7 @@ class PostController {
     try {
       return await PostService.getByUser(res, req?.user?.id)
     } catch (error) {
-      const statusName = error?.name?.includes('Sequelize')? 'BAD_REQUEST' : 'SERVER_ERROR'
+      const statusName = error?.name?.includes('Sequelize') ? 'BAD_REQUEST' : 'SERVER_ERROR'
       return Response.error(res, statusCode[statusName], error)
     }
   }
@@ -37,7 +37,7 @@ class PostController {
     try {
       return await PostService.getByUser(res, req?.params?.userId, req?.user?.id)
     } catch (error) {
-      const statusName = error?.name?.includes('Sequelize')? 'BAD_REQUEST' : 'SERVER_ERROR'
+      const statusName = error?.name?.includes('Sequelize') ? 'BAD_REQUEST' : 'SERVER_ERROR'
       return Response.error(res, statusCode[statusName], error)
     }
   }
@@ -46,7 +46,7 @@ class PostController {
     try {
       return await PostService.update(res, req?.body, req?.params?.id, req?.user?.id)
     } catch (error) {
-      const statusName = error?.name?.includes('Sequelize')? 'BAD_REQUEST' : 'SERVER_ERROR'
+      const statusName = error?.name?.includes('Sequelize') ? 'BAD_REQUEST' : 'SERVER_ERROR'
       return Response.error(res, statusCode[statusName], error)
     }
   }
@@ -55,7 +55,7 @@ class PostController {
     try {
       return await PostService.delete(res, req?.params?.id, req?.user?.id)
     } catch (error) {
-      const statusName = error?.name?.includes('Sequelize')? 'BAD_REQUEST' : 'SERVER_ERROR'
+      const statusName = error?.name?.includes('Sequelize') ? 'BAD_REQUEST' : 'SERVER_ERROR'
       return Response.error(res, statusCode[statusName], error)
     }
   }

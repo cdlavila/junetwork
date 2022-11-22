@@ -30,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
         notNull: {
           msg: 'body is required'
         },
-        isString(value) {
+        isString (value) {
           if (typeof value !== 'string') {
             throw new Error('body must be a string')
           }

@@ -41,7 +41,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     picture: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: true
       /*
       validate: {
         isUrl: {
@@ -88,7 +88,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       unique: {
         msg: 'An user with this phone number already exists'
-      },
+      }
     },
     email: {
       type: DataTypes.STRING,
@@ -112,7 +112,7 @@ module.exports = (sequelize, DataTypes) => {
         notNull: {
           msg: 'password is required'
         },
-        isValid(value) {
+        isValid (value) {
           if (typeof value !== 'string' || value?.length < 8 || value.length > 32) {
             throw new Error('password must be a string and be between 8 and 32 characters')
           } else {

@@ -86,8 +86,7 @@ class UserService {
     const message = await nodemailer.sendEmail(email, 'Recovery password',
       `Your code to recovery the password is: <h2>${code}</h2>`, true)
 
-    if (!message)
-      return Response.error(res, statusCode?.SERVER_ERROR, ['An error occurred while sending the email'])
+    if (!message) { return Response.error(res, statusCode?.SERVER_ERROR, ['An error occurred while sending the email']) }
 
     // Save the code in Redis for 300 seconds (5 min)
     await redis.setex(`recovery_password_code_for_user_${email}`, 300, code)

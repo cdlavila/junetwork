@@ -10,7 +10,7 @@ class CommentRepository {
     return Comment.findByPk(id)
   }
 
-  static async getByPost (postId){
+  static async getByPost (postId) {
     return Comment.findAll({
       where: { post_id: postId },
       attributes: { exclude: ['post_id', 'user_id'] },
@@ -22,7 +22,7 @@ class CommentRepository {
     })
   }
 
-  static async getCountByPost (postId){
+  static async getCountByPost (postId) {
     return Comment.count({
       where: { post_id: postId }
     })

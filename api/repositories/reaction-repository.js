@@ -6,17 +6,17 @@ class ReactionRepository {
     return Reaction.create(data)
   }
 
-  static async get (data){
+  static async get (data) {
     return Reaction.findOne({
       where: data
     })
   }
 
-  static async getById (id){
+  static async getById (id) {
     return Reaction.findByPk(id)
   }
 
-  static async getByPost (postId){
+  static async getByPost (postId) {
     return Reaction.findAll({
       where: { post_id: postId },
       attributes: ['id', 'emoji'],
@@ -28,7 +28,7 @@ class ReactionRepository {
     })
   }
 
-  static async getByComment (commentId){
+  static async getByComment (commentId) {
     return Reaction.findAll({
       where: { comment_id: commentId },
       attributes: ['id', 'emoji'],
@@ -40,13 +40,13 @@ class ReactionRepository {
     })
   }
 
-  static async getCountByPost (postId){
+  static async getCountByPost (postId) {
     return Reaction.count({
       where: { post_id: postId }
     })
   }
 
-  static async getCountByComment (commentId){
+  static async getCountByComment (commentId) {
     return Reaction.count({
       where: { comment_id: commentId }
     })

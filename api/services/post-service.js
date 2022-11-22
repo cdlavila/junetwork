@@ -45,7 +45,7 @@ class PostService {
     if (post?.user_id !== userId) {
       return Response.error(res, statusCode?.PERMISSION_DENIED, ['You cannot update this post because it does not belong to you'])
     }
-    await PostRepository.update({ ...data, user_id: userId}, id)
+    await PostRepository.update({ ...data, user_id: userId }, id)
     post = await PostRepository.getById(id)
     return Response.success(res, statusCode?.OK, post, 'The post has been successfully updated')
   }

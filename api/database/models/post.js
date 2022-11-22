@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.TEXT,
       allowNull: true,
       validate: {
-        isString(value) {
+        isString (value) {
           if (typeof value !== 'string') {
             throw new Error('body must be a string')
           }
@@ -36,7 +36,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     image: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: true
       /*
       validate: {
         isUrl: {

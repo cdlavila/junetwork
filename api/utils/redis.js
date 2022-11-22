@@ -1,4 +1,4 @@
-const redis = require("redis")
+const redis = require('redis')
 
 let client
 if (process.env.NODE_ENV === 'production') {
@@ -11,8 +11,8 @@ if (process.env.NODE_ENV === 'production') {
   client = redis.createClient()
 }
 
-client.on("error", function(error) {
+client.on('error', function (error) {
   console.error(error)
-});
+})
 
 module.exports = client

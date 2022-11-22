@@ -31,7 +31,7 @@ class CommentService {
     if (comment?.user_id !== userId) {
       return Response.error(res, statusCode?.PERMISSION_DENIED, ['You cannot update this comment because it does not belong to you'])
     }
-    await CommentRepository.update({ ...data, post_id: comment.post_id, user_id: userId}, id)
+    await CommentRepository.update({ ...data, post_id: comment.post_id, user_id: userId }, id)
     comment = await CommentRepository.getById(id)
     return Response.success(res, statusCode?.OK, comment, 'The comment has been successfully updated')
   }

@@ -13,7 +13,7 @@ class ReactionService {
       return Response.success(res, statusCode?.CREATED, reaction, 'The reaction has been successfully created')
     }
     if (data?.emoji !== reaction?.emoji) { // Update
-      await ReactionRepository.update({ ...data, comment_id: null}, reaction?.id)
+      await ReactionRepository.update({ ...data, comment_id: null }, reaction?.id)
       const newReaction = await ReactionRepository.getById(reaction?.id)
       return Response.success(res, statusCode?.OK, newReaction, 'The reaction has been successfully updated')
     }
@@ -29,7 +29,7 @@ class ReactionService {
       return Response.success(res, statusCode?.CREATED, reaction, 'The reaction has been successfully created')
     }
     if (data?.emoji !== reaction?.emoji) { // Update
-      await ReactionRepository.update({ ...data, post_id: null}, reaction?.id)
+      await ReactionRepository.update({ ...data, post_id: null }, reaction?.id)
       const newReaction = await ReactionRepository.getById(reaction?.id)
       return Response.success(res, statusCode?.OK, newReaction, 'The reaction has been successfully updated')
     }
