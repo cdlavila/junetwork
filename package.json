@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --silent --detectOpenHandles",
+    "test:watch": "npm run test -- --watch",
     "start": "node index.js",
     "development": "nodemon index.js",
     "db:migrate:development": "sequelize db:migrate --env development",
