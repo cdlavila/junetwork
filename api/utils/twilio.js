@@ -6,8 +6,8 @@ class Twilio {
   static async sendCodeBySms (phone, code) {
     await client.messages
       .create({
-        from: `${process.env.TWILIO_PHONE}`,
         body: `Your code is ${code}`,
+        messagingServiceSid: process.env.TWILIO_MESSAGING_SERVICE_SID,
         to: `+57${phone}`
       })
   }
