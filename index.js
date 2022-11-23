@@ -28,9 +28,9 @@ app.get('/', (req, res) => (
   res.status(200).json({ message: 'Welcome to the social network server' })
 ))
 
-app.listen(port, async () => {
+const server = app.listen(port, async () => {
   console.log(`Server listening at http://localhost:${port}`)
   await sequelize.sync()
 })
 
-module.exports = app
+module.exports = { app, server }

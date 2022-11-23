@@ -4,7 +4,7 @@
   "description": "REST API of a social network with users, posts, comments, reactions, followers, etc.",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --silent --detectOpenHandles",
     "start": "node index.js",
     "development": "nodemon index.js",
     "db:migrate:development": "sequelize db:migrate --env development",
