@@ -3,6 +3,11 @@
   "version": "1.0.0",
   "description": "REST API of a social network with users, posts, comments, reactions, followers, etc.",
   "main": "index.js",
+  "standard": {
+    "ignore": [
+      "*.spec.js"
+    ]
+  },
   "scripts": {
     "test": "jest --silent --detectOpenHandles",
     "test:watch": "npm run test -- --watch",
