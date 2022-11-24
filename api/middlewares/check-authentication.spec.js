@@ -7,8 +7,8 @@ describe('Check Authentication', () => {
   beforeAll(async () => {
     user = await User.create({
       name: 'Test',
-      birthday: "2008-01-02",
-      gender: "male",
+      birthday: '2008-01-02',
+      gender: 'male',
       phone: '123456789',
       email: 'test@junetwork.com',
       password: '12345678'
@@ -56,7 +56,7 @@ describe('Check Authentication', () => {
   })
 
   test('The user no longer exists', async () => {
-    process.env.TOKEN_SECRET_KEY = '1234567890';
+    process.env.TOKEN_SECRET_KEY = '1234567890'
     const token = Token.generate('d67871ba-2cf3-45e5-8206-b10b2af190fb', 'user')
     const req = {
       headers: {
@@ -79,7 +79,7 @@ describe('Check Authentication', () => {
   })
 
   test('The user is authenticated successfully', async () => {
-    process.env.TOKEN_SECRET_KEY = '1234567890';
+    process.env.TOKEN_SECRET_KEY = '1234567890'
     const token = Token.generate(user.id, 'user')
     const req = {
       headers: {
@@ -93,7 +93,7 @@ describe('Check Authentication', () => {
     const next = jest.fn()
     await checkAuthentication(req, res, next)
     expect(next.mock.calls.length).toBe(1)
-    expect(req.user.id).toBe( user.id)
+    expect(req.user.id).toBe(user.id)
   })
 
   afterAll(async () => {

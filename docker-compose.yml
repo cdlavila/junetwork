@@ -14,6 +14,19 @@ services:
       - ./postgres_data:/var/lib/postgresql/data
     networks:
       - junetwork
+  postgres-test:
+    image: postgres:13
+    env_file: .env
+    environment:
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
+    ports:
+      - "5433:5432"
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+    networks:
+      - junetwork
   redis:
     image: redis:6.2.6
     ports:

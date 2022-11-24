@@ -21,7 +21,7 @@ describe('Response class', () => {
       status: jest.fn(() => res),
       json: jest.fn()
     }
-    Response.error(res, 500, ['Error test'],)
+    Response.error(res, 500, ['Error test'])
     expect(res.status.mock.calls[0][0]).toBe(500)
     expect(res.json.mock.calls[0][0]).toEqual({
       data: null,

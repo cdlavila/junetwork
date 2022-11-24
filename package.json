@@ -7,7 +7,7 @@
     "test": "jest --silent --detectOpenHandles",
     "test:watch": "npm run test -- --watch",
     "start": "node index.js",
-    "development": "nodemon index.js",
+    "start:watch": "nodemon index.js",
     "db:migrate:development": "sequelize db:migrate --env development",
     "db:migrate:production": "sequelize db:migrate --env production",
     "db:seed:development": "sequelize db:seed:all --env development",

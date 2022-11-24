@@ -12,37 +12,37 @@ describe('Users Endpoints', () => {
 
   test('POST /api/users/sign-up', async () => {
     const response = await request(app).post('/api/users/sign-up').send({
-      "name": "Samuel Cataño Londoño",
-      "birthday": "2008-01-02",
-      "gender": "male",
-      "phone": "3145406608",
-      "email": "samuelcataño@gmail.com",
-      "password": "samuel123"
+      name: 'Samuel Cataño Londoño',
+      birthday: '2008-01-02',
+      gender: 'male',
+      phone: '3145406608',
+      email: 'samuelcataño@gmail.com',
+      password: 'samuel123'
     })
     expect(response.status).toBe(201)
     expect(response.body.message).toEqual('You have registered successfully')
     expect(response.body.data).toMatchObject({
-      "name": "Samuel Cataño Londoño",
-      "birthday": "2008-01-02",
-      "gender": "male",
-      "phone": "3145406608",
-      "email": "samuelcataño@gmail.com",
+      name: 'Samuel Cataño Londoño',
+      birthday: '2008-01-02',
+      gender: 'male',
+      phone: '3145406608',
+      email: 'samuelcataño@gmail.com'
     })
   })
 
   test('POST /api/users/sign-in', async () => {
     const response = await request(app).post('/api/users/sign-in').send({
-      "email": "samuelcataño@gmail.com",
-      "password": "samuel123"
+      email: 'samuelcataño@gmail.com',
+      password: 'samuel123'
     })
     expect(response.status).toBe(200)
     expect(response.body.message).toEqual('You have authenticated successfully')
     expect(response.body.data.user).toMatchObject({
-      "name": "Samuel Cataño Londoño",
-      "birthday": "2008-01-02",
-      "gender": "male",
-      "phone": "3145406608",
-      "email": "samuelcataño@gmail.com",
+      name: 'Samuel Cataño Londoño',
+      birthday: '2008-01-02',
+      gender: 'male',
+      phone: '3145406608',
+      email: 'samuelcataño@gmail.com'
     })
     expect(response.body.data.token).toBeDefined()
     token = response.body.data.token
@@ -54,11 +54,11 @@ describe('Users Endpoints', () => {
       .set('Authorization', `Bearer ${token}`)
     expect(response.body.message).toEqual('You have authenticated successfully')
     expect(response.body.data.user).toMatchObject({
-      "name": "Samuel Cataño Londoño",
-      "birthday": "2008-01-02",
-      "gender": "male",
-      "phone": "3145406608",
-      "email": "samuelcataño@gmail.com",
+      name: 'Samuel Cataño Londoño',
+      birthday: '2008-01-02',
+      gender: 'male',
+      phone: '3145406608',
+      email: 'samuelcataño@gmail.com'
     })
     expect(response.body.data.token).toBeDefined()
   })
