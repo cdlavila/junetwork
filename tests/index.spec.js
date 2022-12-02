@@ -1,5 +1,5 @@
 const { app, server } = require('../index')
-const Redis = require('../api/utils/redis')
+const Redis = require('../src/utils/redis')
 const request = require('supertest')
 
 describe('Server', () => {

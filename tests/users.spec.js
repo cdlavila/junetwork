@@ -1,7 +1,7 @@
 const { app, server } = require('../index')
-const Redis = require('../api/utils/redis')
+const Redis = require('../src/utils/redis')
 const request = require('supertest')
-const { User } = require('../api/database/models')
+const { User } = require('../src/database/models')
 
 describe('Users Endpoints', () => {
   beforeAll(async () => {

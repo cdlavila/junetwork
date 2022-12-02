@@ -1,11 +1,11 @@
 require('dotenv').config()
 const express = require('express')
 const cors = require('cors')
-const apiRouter = require('./api/routes/index')
+const apiRouter = require('./src/routes/index')
 const port = process.env.PORT || 3001
 
 // Database connection
-const { sequelize } = require('./api/database/models/index')
+const { sequelize } = require('./src/database/models/index')
 
 // Initialize express
 const app = express()
