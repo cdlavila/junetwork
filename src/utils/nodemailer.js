@@ -15,8 +15,8 @@ async function sendEmail (to, subject, body, html = false) {
   // Send mail with defined transport object
   const data = {
     from: process.env.EMAIL,
-    to: to,
-    subject: subject
+    to,
+    subject
   }
   if (html) { data.html = body } else { data.text = body }
 

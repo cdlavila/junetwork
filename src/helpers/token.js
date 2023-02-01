@@ -5,7 +5,7 @@ class Token {
   static generate (userId, role) {
     const payload = {
       sub: userId,
-      role: role,
+      role,
       iat: dayjs().unix(), // Creation time
       exp: dayjs().add(1, 'month').unix() // Expiration time (1 month)
     }

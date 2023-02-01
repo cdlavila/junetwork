@@ -7,9 +7,9 @@ class Response {
     }
 
     res.status(code || statusCode?.OK).json({
-      data: data,
-      code: code,
-      message: message,
+      data,
+      code,
+      message,
       error: null
     })
   }
@@ -17,7 +17,7 @@ class Response {
   static error (res, code, errors) {
     res.status(code || statusCode?.SERVER_ERROR).json({
       data: null,
-      code: code,
+      code,
       message: null,
       errors: errors?.errors?.map(e => e?.message) || errors?.message || errors
     })

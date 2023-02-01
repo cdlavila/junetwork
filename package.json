@@ -5,7 +5,7 @@
   "main": "index.js",
   "standard": {
     "ignore": [
-      "*.spec.js"
+      "*spec.js"
     ]
   },
   "jest": {
