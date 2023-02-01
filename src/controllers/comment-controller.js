@@ -11,7 +11,7 @@ class CommentController {
       return await CommentService.create(res, req?.body, req?.user?.id);
     } catch (error) {
       const statusName = error?.name?.includes('Sequelize') ? 'BAD_REQUEST' : 'SERVER_ERROR'
-      return Response.error(res, statusCode[statusName], error)
+      return Response.error(res, statusCode[statusName], error);
     }
   }
 
