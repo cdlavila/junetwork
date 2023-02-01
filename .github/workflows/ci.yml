@@ -59,6 +59,16 @@ jobs:
         run: npm ci
       - name: Run migrations
         run: npm run db:migrate:test
+        env:
+          PORT: 3001
+          NODE_ENV: test
+          DATABASE_HOST: postgres-test
+          DATABASE_PORT: 5432
+          DATABASE_USER: postgres-test-user
+          DATABASE_PASSWORD: postgres-test-password
+          DATABASE_NAME: postgres-test-db
+          DATABASE_HOST_TEST: postgres-test
+          DATABASE_PORT_TEST: 5432
       - name: Run e2e tests
         run: npm run test:e2e
         env:
