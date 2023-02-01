@@ -1,20 +1,40 @@
 const checkAuthentication = require('./check-authentication')
 const Token = require('../helpers/token')
-const { User } = require('../database/models')
+
+let fakeUser = {
+  id: 'a67871ba-2cf3-45e5-8206-b10b2af190fb',
+  name: 'Test',
+  birthday: '2008-01-02',
+  gender: 'male',
+  phone: '123456789',
+  email: 'test@junetwork.com',
+  password: '12345678'
+}
+
+// Mocking for a default import
+// const userModelStub = {
+//   findByPk: (id) => {
+//     return id === fakeUser.id ? fakeUser : null
+//   }
+// }
+//
+// jest.mock('../database/models/index', () => jest.fn().mockImplementation(() => userModelStub))
+
+// Mocking for a destructuring import
+jest.mock('../database/models/index', () => {
+  const originalModule = jest.requireActual('../database/models/index');
+  return {
+    __esModule: true,
+    ...originalModule,
+    User: {
+      findByPk: (id) => {
+        return id === fakeUser.id ? { dataValues: fakeUser } : null
+      }
+    }
+  };
+});
 
 describe('Check Authentication', () => {
-  let user
-  beforeAll(async () => {
-    user = await User.create({
-      name: 'Test',
-      birthday: '2008-01-02',
-      gender: 'male',
-      phone: '123456789',
-      email: 'test@junetwork.com',
-      password: '12345678'
-    })
-  })
-
   test('Token is required', () => {
     const req = {
       headers: {}
@@ -80,7 +100,7 @@ describe('Check Authentication', () => {
 
   test('The user is authenticated successfully', async () => {
     process.env.TOKEN_SECRET_KEY = '1234567890'
-    const token = Token.generate(user.id, 'user')
+    const token = Token.generate(fakeUser.id, 'user')
     const req = {
       headers: {
         authorization: 'Bearer ' + token
@@ -93,10 +113,6 @@ describe('Check Authentication', () => {
     const next = jest.fn()
     await checkAuthentication(req, res, next)
     expect(next.mock.calls.length).toBe(1)
-    expect(req.user.id).toBe(user.id)
-  })
-
-  afterAll(async () => {
-    await User.destroy({ where: { id: user.id } })
+    expect(req.user.id).toBe(fakeUser.id)
   })
 })

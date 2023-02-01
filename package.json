@@ -9,17 +9,22 @@
     ]
   },
   "scripts": {
+    "standard": "npx standard --fix",
     "test": "jest --silent --detectOpenHandles",
+    "test:cov": "jest --silent --detectOpenHandles --coverage",
     "test:watch": "npm run test -- --watch",
     "start": "node index.js",
     "start:watch": "nodemon index.js",
     "db:migrate:development": "sequelize db:migrate --env development",
-    "db:migrate:production": "sequelize db:migrate --env production",
     "db:seed:development": "sequelize db:seed:all --env development",
-    "db:seed:production": "sequelize db:seed:all --env production",
     "db:rollback:development": "sequelize db:migrate:undo:all --env development",
     "db:update:development": "sequelize db:migrate:undo:all --env development && sequelize db:migrate --env development && sequelize db:seed:all --env development",
-    "standard": "npx standard --fix"
+    "db:migrate:test": "sequelize db:migrate --env test",
+    "db:seed:test": "sequelize db:seed:all --env test",
+    "db:rollback:test": "sequelize db:migrate:undo:all --env test",
+    "db:migrate:production": "sequelize db:migrate --env production",
+    "db:seed:production": "sequelize db:seed:all --env production",
+    "db:rollback:production": "sequelize db:migrate:undo:all --env production"
   },
   "repository": {
     "type": "git",

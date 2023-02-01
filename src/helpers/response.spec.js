@@ -16,6 +16,21 @@ describe('Response class', () => {
     })
   })
 
+  test('Success response with no content', () => {
+    const res = {
+      status: jest.fn(() => res),
+      json: jest.fn()
+    }
+    Response.success(res, 204, null, 'No content')
+    expect(res.status.mock.calls[0][0]).toBe(204)
+    expect(res.json.mock.calls[0][0]).toEqual({
+      data: null,
+      code: 204,
+      message: 'No content',
+      error: null
+    })
+  })
+
   test('Error response', () => {
     const res = {
       status: jest.fn(() => res),
