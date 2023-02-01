@@ -29,7 +29,7 @@ app.get('/', (req, res) => (
 ))
 
 const server = app.listen(port, async () => {
-  console.log(`Server listening at http://localhost:${port}`)
+  console.log(`Server listening at http://localhost:${port}, ENV: ${process.env.NODE_ENV}`)
   await sequelize.sync()
 })
 
