@@ -9,7 +9,7 @@ const ReactionRepository = require('../repositories/reaction-repository')
 class CommentService {
   static async create (res, data, userId) {
     const comment = await CommentRepository.create({ ...data, user_id: userId })
-    return Response.success(res, statusCode?.CREATED, comment, 'Comment created successfully ')
+    return Response.success(res, statusCode?.CREATED, comment, 'Comment created successfully')
   }
 
   static async getByPost (res, postId, userId) {
