@@ -1,5 +1,6 @@
 const checkAuthentication = require('./check-authentication')
 const Token = require('../helpers/token')
+const { User } = require('../database/models/index')
 
 let fakeUser = {
   id: 'a67871ba-2cf3-45e5-8206-b10b2af190fb',
@@ -11,13 +12,15 @@ let fakeUser = {
   password: '12345678'
 }
 
+const spyFindByPk = jest.spyOn(User, 'findByPk')
+
+const userModelStub = {
+  User: {
+    findByPk: () => spyFindByPk
+  }
+}
+
 // Mocking for a default import
-// const userModelStub = {
-//   findByPk: (id) => {
-//     return id === fakeUser.id ? fakeUser : null
-//   }
-// }
-//
 // jest.mock('../database/models/index', () => jest.fn().mockImplementation(() => userModelStub))
 
 // Mocking for a destructuring import
@@ -26,11 +29,7 @@ jest.mock('../database/models/index', () => {
   return {
     __esModule: true,
     ...originalModule,
-    User: {
-      findByPk: (id) => {
-        return id === fakeUser.id ? { dataValues: fakeUser } : null
-      }
-    }
+    ...userModelStub
   };
 });
 
@@ -88,6 +87,7 @@ describe('Check Authentication', () => {
       json: jest.fn()
     }
     const next = jest.fn()
+    spyFindByPk.mockResolvedValue(null) // mocking the spy
     await checkAuthentication(req, res, next)
     expect(res.status.mock.calls[0][0]).toBe(401)
     expect(res.json.mock.calls[0][0]).toEqual({
@@ -96,6 +96,8 @@ describe('Check Authentication', () => {
       message: null,
       errors: ['The user no longer exists']
     })
+    expect(spyFindByPk).toHaveBeenCalled()
+    expect(spyFindByPk).toHaveBeenCalledWith('d67871ba-2cf3-45e5-8206-b10b2af190fb')
   })
 
   test('The user is authenticated successfully', async () => {
@@ -111,8 +113,11 @@ describe('Check Authentication', () => {
       json: jest.fn()
     }
     const next = jest.fn()
+    spyFindByPk.mockResolvedValue({ dataValues: fakeUser }) // mocking the spy
     await checkAuthentication(req, res, next)
     expect(next.mock.calls.length).toBe(1)
     expect(req.user.id).toBe(fakeUser.id)
+    expect(spyFindByPk).toHaveBeenCalled()
+    expect(spyFindByPk).toHaveBeenCalledWith(fakeUser.id)
   })
 })
