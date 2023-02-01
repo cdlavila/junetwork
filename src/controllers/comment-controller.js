@@ -8,7 +8,7 @@ const CommentService = require('../services/comment-service')
 class CommentController {
   static async create (req, res) {
     try {
-      return await CommentService.create(res, req?.body, req?.user?.id)
+      return await CommentService.create(res, req?.body, req?.user?.id);
     } catch (error) {
       const statusName = error?.name?.includes('Sequelize') ? 'BAD_REQUEST' : 'SERVER_ERROR'
       return Response.error(res, statusCode[statusName], error)
