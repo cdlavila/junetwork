@@ -1,5 +1,5 @@
 const { app, server } = require('../index')
-const Redis = require('../src/utils/redis')
+// const Redis = require('../src/utils/redis')
 const request = require('supertest')
 
 describe('Server', () => {
@@ -17,6 +17,6 @@ describe('Server', () => {
 
   afterAll(() => {
     server.close()
-    Redis.quit()
+    // Redis.quit()
   })
 })

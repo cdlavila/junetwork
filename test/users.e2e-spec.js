@@ -1,13 +1,9 @@
 const { app, server } = require('../index')
-const Redis = require('../src/utils/redis')
+// const Redis = require('../src/utils/redis')
 const request = require('supertest')
 const { User } = require('../src/database/models')
 
 describe('Users Endpoints', () => {
-  beforeAll(async () => {
-    await User.destroy({ where: { email: 'samuelcataño@gmail.com' } })
-  })
-
   let token
 
   test('POST /api/users/sign-up', async () => {
@@ -63,8 +59,9 @@ describe('Users Endpoints', () => {
     expect(response.body.data.token).toBeDefined()
   })
 
-  afterAll(() => {
+  afterAll(async () => {
+    await User.destroy({ where: { email: 'samuelcataño@gmail.com' } })
     server.close()
-    Redis.quit()
+    // Redis.quit()
   })
 })
