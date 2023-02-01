@@ -15,7 +15,6 @@ describe('Users Endpoints', () => {
       email: 'carlosdaniel.londono@utp.edu.co',
       password: '12345678'
     })
-    console.log(response.body)
     expect(response.status).toBe(201)
     expect(response.body.message).toEqual('You have registered successfully')
     expect(response.body.data).toMatchObject({
@@ -32,7 +31,6 @@ describe('Users Endpoints', () => {
       email: 'carlosdaniel.londono@utp.edu.co',
       password: '12345678'
     })
-    console.log(response.body)
     expect(response.status).toBe(200)
     expect(response.body.message).toEqual('You have authenticated successfully')
     expect(response.body.data.user).toMatchObject({
@@ -50,7 +48,6 @@ describe('Users Endpoints', () => {
     const response = await request(app)
       .get('/api/users/refresh').send()
       .set('Authorization', `Bearer ${token}`)
-    console.log(response.body)
     expect(response.body.message).toEqual('You have authenticated successfully')
     expect(response.body.data.user).toMatchObject({
       name: 'Carlos Daniel Londoño',
@@ -63,7 +60,7 @@ describe('Users Endpoints', () => {
   })
 
   afterAll(async () => {
-    // await User.destroy({ where: { email: 'carlosdaniel.londono@utp.edu.co' } })
+    await User.destroy({ where: { email: 'carlosdaniel.londono@utp.edu.co' } })
     server.close()
     // Redis.quit()
   })
