@@ -5,7 +5,7 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  standard:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -17,7 +17,63 @@ jobs:
           cache: "npm"
       - name: Install dependencies
         run: npm ci
-      - name: Check code standards
+      - name: Check code standard
         run: npm run standard
+  unit-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Setup Node.js 18.x
+        uses: actions/setup-node@v2
+        with:
+          node-version: 18.x
+          cache: "npm"
+      - name: Install dependencies
+        run: npm ci
       - name: Run unit tests
         run: npm run test
+  e2e-tests:
+    runs-on: ubuntu-latest
+    container:
+      image: node:18
+    services:
+      postgres-test:
+        image: postgres:latest
+        env:
+          POSTGRES_USER: postgres-test-user
+          POSTGRES_PASSWORD: postgres-test-password
+          POSTGRES_DB: postgres-test-db
+        ports:
+          - 5432:5432
+      redis-test:
+        image: redis:latest
+        ports:
+          - 6379:6379
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Install dependencies
+        run: npm ci
+      - name: Run e2e tests
+        run: npm run test:e2e
+        env:
+          PORT: 3001
+          NODE_ENV: development
+          DATABASE_HOST: postgres-test
+          DATABASE_PORT: 5432
+          DATABASE_USER: postgres-test-user
+          DATABASE_PASSWORD: postgres-test-password
+          DATABASE_NAME: postgres-test-db
+          DATABASE_HOST_TEST: postgres-test
+          DATABASE_PORT_TEST: 5432
+          EMAIL: carlosdaniellondonoavila@gmail.com
+          EMAIL_PASSWORD: fziqzofiffwyffua
+          REDIS_HOST: redis-test
+          REDIS_PORT: 6379
+          TWILIO_ACCOUNT_SID: AC9796dd393fc4c493b224206317031c02
+          TWILIO_AUTH_TOKEN: f18494b17b3fe79db10589007a79f7e1
+          TWILIO_MESSAGING_SERVICE_SID: MGb8320ca00df9c24d8c6e2d18173b76ef
+          TWILIO_WHATSAPP: +14155238886
+          TOKEN_SECRET_KEY: bIoRHtwqBND6zWgMPp5Yv8seCiOnf2L3
+          SERVER_URL: http://localhost:3001
