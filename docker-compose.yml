@@ -2,6 +2,7 @@ version: '3.8'
 
 services:
   postgres:
+    container_name: postgres
     image: postgres:latest
     env_file: .env
     environment:
@@ -14,20 +15,8 @@ services:
       - ./postgres_data:/var/lib/postgresql/data
     networks:
       - junetwork
-  postgres-test:
-    image: postgres:latest
-    env_file: .env
-    environment:
-      POSTGRES_USER: ${DATABASE_USER_TEST}
-      POSTGRES_PASSWORD: ${DATABASE_PASSWORD_TEST}
-      POSTGRES_DB: ${DATABASE_NAME_TEST}
-    ports:
-      - "5433:5432"
-    volumes:
-      - ./postgres_data:/var/lib/postgresql/test/data
-    networks:
-      - junetwork
   redis:
+    container_name: redis
     image: redis:latest
     ports:
       - "6379:6379"
