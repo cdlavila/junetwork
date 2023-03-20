@@ -3,30 +3,13 @@ name: Continuous Integration and Deployment
 on:
   push:
     branches:
-      - staging
+      - main
 
 jobs:
   CI:
     name: Continuos Integration
     runs-on: ubuntu-latest
     timeout-minutes: 15
-    container:
-      image: node:18
-    services:
-      postgres-test:
-        image: postgres:latest
-        env:
-          POSTGRES_USER: ${{secrets.DATABASE_USER_TEST}}
-          POSTGRES_PASSWORD: ${{secrets.DATABASE_PASSWORD_TEST}}
-          POSTGRES_DB: ${{secrets.DATABASE_NAME_TEST}}
-        ports:
-          - 5432:5432
-        # Set health checks to wait until postgres has started
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
-      redis-test:
-        image: redis:latest
-        ports:
-          - 6379:6379
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -42,11 +25,11 @@ jobs:
         with:
           envkey_NODE_ENV: ${{secrets.NODE_ENV}}
           envkey_PORT: ${{secrets.PORT}}
-          envkey_DATABASE_HOST_TEST: ${{secrets.DATABASE_HOST_TEST}}
-          envkey_DATABASE_PORT_TEST: ${{secrets.DATABASE_PORT_TEST}}
-          envkey_DATABASE_USER_TEST: ${{secrets.DATABASE_USER_TEST}}
-          envkey_DATABASE_PASSWORD_TEST: ${{secrets.DATABASE_PASSWORD_TEST}}
-          envkey_DATABASE_NAME_TEST: ${{secrets.DATABASE_NAME_TEST}}
+          envkey_DATABASE_HOST_PROD: ${{secrets.DATABASE_HOST_PROD}}
+          envkey_DATABASE_PORT_PROD: ${{secrets.DATABASE_PORT_PROD}}
+          envkey_DATABASE_USER_PROD: ${{secrets.DATABASE_USER_PROD}}
+          envkey_DATABASE_PASSWORD_PROD: ${{secrets.DATABASE_PASSWORD_PROD}}
+          envkey_DATABASE_NAME_PROD: ${{secrets.DATABASE_NAME_PROD}}
           envkey_EMAIL: ${{secrets.EMAIL}}
           envkey_EMAIL_PASSWORD: ${{secrets.EMAIL_PASSWORD}}
           envkey_REDIS_HOST: ${{secrets.REDIS_HOST}}
