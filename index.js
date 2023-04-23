@@ -1,7 +1,7 @@
 require('dotenv').config()
 const express = require('express')
 const cors = require('cors')
-const apiRouter = require('./src/routes/index')
+const apiRouter = require('./src/routers/index')
 const port = process.env.PORT || 3001
 
 // Database connection
