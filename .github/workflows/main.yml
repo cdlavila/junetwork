@@ -74,6 +74,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      - name: Execute remote commands via ssh
+#      - name: Execute remote commands via ssh
         # This step uses the ssh key stored in the SSH_KEY secret to access the server
         # and execute necessary commands to deploy the application
