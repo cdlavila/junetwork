@@ -51,8 +51,6 @@ jobs:
           envkey_DATABASE_NAME_TEST: ${{secrets.DATABASE_NAME_TEST}}
           envkey_EMAIL: ${{secrets.EMAIL}}
           envkey_EMAIL_PASSWORD: ${{secrets.EMAIL_PASSWORD}}
-          envkey_REDIS_HOST: ${{secrets.REDIS_HOST}}
-          envkey_REDIS_PORT: ${{secrets.REDIS_PORT}}
           envkey_TWILIO_ACCOUNT_SID: ${{secrets.TWILIO_ACCOUNT_SID}}
           envkey_TWILIO_AUTH_TOKEN: ${{secrets.TWILIO_AUTH_TOKEN}}
           envkey_TWILIO_MESSAGING_SERVICE_SID: ${{secrets.TWILIO_MESSAGING_SERVICE_SID}}
